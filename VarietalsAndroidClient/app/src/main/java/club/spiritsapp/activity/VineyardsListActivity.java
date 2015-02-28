@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.Request.Method;
@@ -24,11 +25,14 @@ import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthToken;
 import com.twitter.sdk.android.core.TwitterSession;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import club.spiritsapp.R;
 import club.spiritsapp.VarietalsApp;
-import club.spiritsapp.VineyardsRequest;
+import club.spiritsapp.model.SampleImages;
+import club.spiritsapp.network.VineyardsRequest;
 import club.spiritsapp.model.Vineyard;
 import club.spiritsapp.model.VineyardsRequestBody;
 
@@ -134,13 +138,16 @@ public class VineyardsListActivity extends TintedStatusBarActivity {
 
         for (final Vineyard type : vineyards) {
 
+            type.samplePhotoResourceIds.add(SampleImages.getNextSampleResourceId());
+            type.samplePhotoResourceIds.addAll(Arrays.<Integer>asList(SampleImages.sampleImageResourceIds));
+
+
             final ViewGroup vineyardContainer = (ViewGroup) inflator.inflate(
                     R.layout.activity_vineyards_item, vineyardsContainer, false);
 
             vineyardContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     final Intent intent = new Intent(VineyardsListActivity.this, ViewVineyardActivity.class);
                     startActivity(intent);
                 }
@@ -150,7 +157,10 @@ public class VineyardsListActivity extends TintedStatusBarActivity {
             vineyardNameView.setText(type.name);
 
             final TextView vineyardAddressView = (TextView) vineyardContainer.findViewById(R.id.address);
-            //vineyardAddressView.setText(type.address);
+            vineyardAddressView.setText(null == type.address ? "" : type.address.toString());
+
+            final ImageView vineyardImage = (ImageView) vineyardContainer.findViewById(R.id.vineyard_image);
+            vineyardImage.setImageResource(type.samplePhotoResourceIds.iterator().next());
 
             vineyardsContainer.addView(vineyardContainer);
 

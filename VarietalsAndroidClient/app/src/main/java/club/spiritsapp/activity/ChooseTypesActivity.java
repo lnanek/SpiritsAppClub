@@ -19,7 +19,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import club.spiritsapp.GsonRequest;
+import club.spiritsapp.network.GsonRequest;
 import club.spiritsapp.R;
 import club.spiritsapp.VarietalsApp;
 import club.spiritsapp.model.TypesResponse;

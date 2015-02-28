@@ -2,7 +2,6 @@ package club.spiritsapp.activity;
 
 import java.util.Set;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -20,13 +19,9 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import club.spiritsapp.GsonRequest;
+import club.spiritsapp.network.GsonRequest;
 import club.spiritsapp.R;
 import club.spiritsapp.VarietalsApp;
-import club.spiritsapp.R.id;
-import club.spiritsapp.R.layout;
-import club.spiritsapp.R.menu;
-import club.spiritsapp.R.string;
 import club.spiritsapp.model.Varietal;
 import club.spiritsapp.model.VarietalsResponse;
 
