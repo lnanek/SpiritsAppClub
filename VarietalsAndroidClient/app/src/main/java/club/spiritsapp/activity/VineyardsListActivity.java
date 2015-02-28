@@ -91,17 +91,8 @@ public class VineyardsListActivity extends TintedStatusBarActivity {
             }
         });
 
-        //String httpPostBody="{ \"types\": [\"Red\"], \"varietals\" : [\"Pinot Noir\"] }";
-
         TwitterSession session =
                 Twitter.getSessionManager().getActiveSession();
-
-        session.getUserId();
-        session.getUserName();
-
-        TwitterAuthToken authToken = session.getAuthToken();
-        String token = authToken.token;
-        String secret = authToken.secret;
 
         VineyardsRequestBody body = new VineyardsRequestBody();
         body.types = VarietalsApp.instance.prefs.getChosenTypes();

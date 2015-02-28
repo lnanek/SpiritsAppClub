@@ -17,23 +17,32 @@
         android:label="@string/app_name"
         android:theme="@android:style/Theme.NoTitleBar" >
         
-        <activity android:name=".activity.SignInActivity" android:theme="@android:style/Theme.NoTitleBar" >
+        <activity android:name=".activity.SignInActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity> 
         
-        <activity android:name=".activity.ChooseTypesActivity" android:theme="@style/CustomActionBarTheme" >
+        <activity android:name=".activity.ChooseTypesActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/CustomActionBarTheme" >
         </activity> 
         
-        <activity android:name=".activity.ChooseVarietalsActivity" android:theme="@style/CustomActionBarTheme" >
+        <activity android:name=".activity.ChooseVarietalsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/CustomActionBarTheme" >
         </activity> 
         
-        <activity android:name=".activity.VineyardsListActivity" android:theme="@style/CustomActionBarTheme" >
+        <activity android:name=".activity.VineyardsListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/CustomActionBarTheme" >
         </activity>
 
         <activity android:name=".activity.ChooseHotelActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/CustomActionBarTheme"
             android:label="Book Hotels"
             >
@@ -45,10 +54,14 @@
             -->
         </activity>
 
-        <activity android:name=".activity.ViewVineyardActivity" android:theme="@android:style/Theme.NoTitleBar" >
+        <activity android:name=".activity.ViewVineyardActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
 
-        <activity android:name=".activity.ViewItineraryActivity" android:theme="@style/CustomActionBarTheme" >
+        <activity android:name=".activity.ViewItineraryActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/CustomActionBarTheme" >
         </activity>
 
     </application>

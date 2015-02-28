@@ -3,14 +3,17 @@ package club.spiritsapp.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Outline;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewOutlineProvider;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.shamanland.fab.FloatingActionButton;
 
 import club.spiritsapp.R;
 import club.spiritsapp.model.SampleImages;
@@ -74,6 +77,36 @@ public class ViewItineraryActivity extends TintedStatusBarActivity {
                 finish();
             }
         });
+
+        FloatingActionButton shareButton = (FloatingActionButton) findViewById(R.id.shareButton);
+
+        shareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "I'm going to the " + vineyard + " Vineyard!");
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
+
+            }
+        });
+
+        //ListView listView = (ListView) findViewById(android.R.id.list);
+        //listView.setOnTouchListener(new ShowHideOnScroll(fab));
+
+
+        ViewOutlineProvider viewOutlineProvider = new ViewOutlineProvider() {
+            @Override
+            public void getOutline(View view, Outline outline) {
+                // Or read size directly from the view's width/height
+                int size = getResources().getDimensionPixelSize(R.dimen.diameter);
+                outline.setOval(0, 0, size, size);
+            }
+        };
+        shareButton.setOutlineProvider(viewOutlineProvider);
 	}
 
 }

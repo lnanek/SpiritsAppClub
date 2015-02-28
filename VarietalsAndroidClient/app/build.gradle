@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "varietals.club.varietalsclub"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
@@ -35,4 +35,6 @@ dependencies {
     }
 
     compile 'com.squareup.picasso:picasso:2.5.0'
+
+    compile 'com.shamanland:fab:0.0.8'
 }
