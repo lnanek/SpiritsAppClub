@@ -1,0 +1,18 @@
+<CheckBox xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/button_dark"
+    android:gravity="center"
+    android:paddingBottom="14dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="14dp"
+    android:text="Red"
+    android:textColor="#FFF"
+    android:textSize="13sp"
+    android:layout_margin="10dp"
+    tools:context=".QuizActivity" >
+
+</CheckBox>
