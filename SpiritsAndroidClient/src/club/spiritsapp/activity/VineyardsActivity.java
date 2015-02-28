@@ -75,6 +75,11 @@ public class VineyardsActivity extends TintedStatusBarActivity {
 		vineyard2.name = "Acacia Vineyard";
 		vineyard2.address = "2750 Las Amigas Road, Napa CA 94559";
 		vineyards.add(vineyard2);		
+
+		final Vineyard vineyard3 = new Vineyard();
+		vineyard3.name = "Mike's Beer Station";
+		vineyard3.address = "1351 Dewing LN, Walnut Creek CA 94595";
+		vineyards.add(vineyard3);		
 		
 		response.vineyards = vineyards;
 

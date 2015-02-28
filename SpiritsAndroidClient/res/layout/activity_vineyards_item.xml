@@ -2,35 +2,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    android:gravity="center"
+    android:layout_marginBottom="10dp"
+    android:background="#FFF"
     android:orientation="vertical"
-    android:paddingBottom="14dp"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
-    android:paddingTop="14dp"
     tools:context=".VineyardsActivity" >
 
-    <TextView
-        android:id="@+id/name"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:text="Jamieson Ranch Vineyards"
-        android:textColor="#000"
-        android:textSize="13sp" />
+        android:layout_height="150dp" >
 
-    <TextView
-        android:id="@+id/address"
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/im_landing_background" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|bottom"
+            android:layout_marginLeft="26dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_arrow" />
+    </FrameLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:text="1 Kirkland Ranch RD, Napa CA 94558"
-        android:textColor="#000"
-        android:textSize="13sp" />
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="14dp"
+        android:paddingRight="14dp"
+        android:paddingTop="14dp" >
+
+        <LinearLayout
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            tools:context=".VineyardsActivity" >
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="26dp"
+                android:paddingBottom="5dp"
+                android:text="Jamieson Ranch Vineyards"
+                android:textColor="#000"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="26dp"
+                android:text="1 Kirkland Ranch RD, Napa CA 94558"
+                android:textColor="#b8b8b8"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_calendar" />
+    </LinearLayout>
 
 </LinearLayout>
