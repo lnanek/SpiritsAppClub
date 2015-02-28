@@ -29,7 +29,7 @@
         <activity android:name=".activity.ChooseVarietalsActivity">
         </activity> 
         
-        <activity android:name=".activity.VineyardsActivity">
+        <activity android:name=".activity.VineyardsListActivity">
         </activity> 
         
         <activity android:name=".activity.ViewVineyardActivity" android:theme="@android:style/Theme.NoTitleBar" >

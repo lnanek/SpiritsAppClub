@@ -17,7 +17,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import club.spiritsapp.GsonRequest;
 import club.spiritsapp.R;
 import club.spiritsapp.VarietalsApp;
@@ -31,6 +33,7 @@ import club.spiritsapp.model.VarietalsResponse;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.Request.Method;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
@@ -85,7 +88,7 @@ public class ChooseVarietalsActivity extends TintedStatusBarActivity {
 		progress.show();
 		
 		GsonRequest<VarietalsResponse> typesRequest = new GsonRequest<VarietalsResponse>(
-				URL, VarietalsResponse.class, null,
+				Method.GET, URL, VarietalsResponse.class, null,
 				new Response.Listener<VarietalsResponse>() {
 					@Override
 					public void onResponse(VarietalsResponse response) {
@@ -141,6 +144,25 @@ public class ChooseVarietalsActivity extends TintedStatusBarActivity {
 			final CheckBox checkbox = (CheckBox) inflator.inflate(
 					R.layout.activity_choose_item, typesContainer, false);
 			checkbox.setText(varietal.name);
+			
+			checkbox.setOnCheckedChangeListener(new OnCheckedChangeListener() {				
+				@Override
+				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+					
+					final Set<String> currentVarietals = VarietalsApp.instance.prefs.getChosenVarietals();
+										
+					if (isChecked) {
+						currentVarietals.add(varietal.id);
+					} else {
+						currentVarietals.remove(varietal.id);
+					}
+					
+					VarietalsApp.instance.prefs.setChosenVarietals(currentVarietals);
+					
+				}
+			});			
+			
+			
 			typesContainer.addView(checkbox);
 
 		}

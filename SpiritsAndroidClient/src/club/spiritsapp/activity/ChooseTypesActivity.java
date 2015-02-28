@@ -3,7 +3,6 @@ package club.spiritsapp.activity;
 import java.util.HashSet;
 import java.util.Set;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -26,6 +25,7 @@ import club.spiritsapp.VarietalsApp;
 import club.spiritsapp.model.TypesResponse;
 import club.spiritsapp.model.VarietalType;
 
+import com.android.volley.Request.Method;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -70,7 +70,7 @@ public class ChooseTypesActivity extends TintedStatusBarActivity {
 		
 		typesContainer = (ViewGroup) findViewById(R.id.typesContainer);
 
-		VarietalsApp.instance.prefs.setChoseTypes(new HashSet<String>());
+		VarietalsApp.instance.prefs.setChosenTypes(new HashSet<String>());
 		
 		requestTypes();
 
@@ -79,10 +79,12 @@ public class ChooseTypesActivity extends TintedStatusBarActivity {
 	private void requestTypes() {
 		
 		final ProgressDialog progress = new ProgressDialog(this);
+		progress.setCancelable(true);
+		progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 		progress.show();
 		
 		GsonRequest<TypesResponse> typesRequest = new GsonRequest<TypesResponse>(
-				URL, TypesResponse.class, null,
+				Method.GET, URL, TypesResponse.class, null,
 				new Response.Listener<TypesResponse>() {
 					@Override
 					public void onResponse(TypesResponse response) {
@@ -143,7 +145,7 @@ public class ChooseTypesActivity extends TintedStatusBarActivity {
 						currentTypes.remove(type.id);
 					}
 					
-					VarietalsApp.instance.prefs.setChoseTypes(currentTypes);
+					VarietalsApp.instance.prefs.setChosenTypes(currentTypes);
 					
 				}
 			});

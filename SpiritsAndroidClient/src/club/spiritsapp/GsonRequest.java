@@ -20,6 +20,7 @@ public class GsonRequest<T> extends Request<T> {
     private final Class<T> clazz;
     private final Map<String, String> headers;
     private final Listener<T> listener;
+    private String httpPostBody;
 
     /**
      * Make a GET request and return a parsed object from JSON.
@@ -28,9 +29,9 @@ public class GsonRequest<T> extends Request<T> {
      * @param clazz Relevant class object, for Gson's reflection
      * @param headers Map of request headers
      */
-    public GsonRequest(String url, Class<T> clazz, Map<String, String> headers,
+    public GsonRequest(final int method, String url, Class<T> clazz, Map<String, String> headers,
             Listener<T> listener, ErrorListener errorListener) {
-        super(Method.GET, url, errorListener);
+        super(method, url, errorListener);
         this.clazz = clazz;
         this.headers = headers;
         this.listener = listener;
@@ -61,4 +62,30 @@ public class GsonRequest<T> extends Request<T> {
             return Response.error(new ParseError(e));
         }
     }
+    
+    public void setBody(final String body) {
+    	httpPostBody = body;
+    }
+    
+    
+    // this is the relevant method   
+   @Override
+   public byte[] getBody() throws AuthFailureError {
+	   if ( null == httpPostBody) {
+		   return super.getBody();
+	   }
+	   
+       return httpPostBody.getBytes();
+   }
+   
+   public String getBodyContentType()
+   {
+
+	   if ( null == httpPostBody) {
+		   return super.getBodyContentType();
+	   }
+	   
+       return "application/javascript";
+   }
+   
 }

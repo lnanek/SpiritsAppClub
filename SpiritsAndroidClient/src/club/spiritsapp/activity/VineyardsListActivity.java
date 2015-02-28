@@ -1,14 +1,15 @@
 package club.spiritsapp.activity;
 
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,10 +18,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import club.spiritsapp.R;
 import club.spiritsapp.VarietalsApp;
+import club.spiritsapp.VineyardsRequest;
 import club.spiritsapp.model.Vineyard;
-import club.spiritsapp.model.VineyardsResponse;
+import club.spiritsapp.model.VineyardsRequestBody;
 
+import com.android.volley.Request.Method;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
@@ -30,10 +35,7 @@ public class VineyardsListActivity extends TintedStatusBarActivity {
 
 	private final Gson gson = new Gson();
 
-	private static final String URL = "http://varietals-server.cfapps.io/lookup/types";
-	/*
-	 * /appelations /countries /states /regions /types /varietals
-	 */
+	private static final String URL = "http://varietals-server.cfapps.io/user/123/suggestions";
 
 	private ViewGroup vineyardsContainer;
 
@@ -52,36 +54,46 @@ public class VineyardsListActivity extends TintedStatusBarActivity {
 
 		vineyardsContainer = (ViewGroup) findViewById(R.id.vineyardsContainer);
 
-		VarietalsApp.instance.prefs.setChoseTypes(new HashSet<String>());
-
 		requestVineyards();
 
 	}
 
 	private void requestVineyards() {
-
-		final VineyardsResponse response = new VineyardsResponse();
-
-		final List<Vineyard> vineyards = new LinkedList<Vineyard>();
-
-		final Vineyard vineyard1 = new Vineyard();
-		vineyard1.name = "Jamieson Ranch Vineyards";
-		vineyard1.address = "1 Kirkland Ranch RD, Napa CA 94558";
-		vineyards.add(vineyard1);
+		final ProgressDialog progress = new ProgressDialog(this);
+		progress.show();
 		
-		final Vineyard vineyard2 = new Vineyard();
-		vineyard2.name = "Acacia Vineyard";
-		vineyard2.address = "2750 Las Amigas Road, Napa CA 94559";
-		vineyards.add(vineyard2);		
+		VineyardsRequest typesRequest = new VineyardsRequest(
+				Method.POST, URL, null,
+				new Response.Listener<List<Vineyard>>() {
+					@Override
+					public void onResponse(List<Vineyard> response) {
+						progress.dismiss();
+						Log.d(TAG, "Downloaded: " + response);
+						displayVineyards(response);
 
-		final Vineyard vineyard3 = new Vineyard();
-		vineyard3.name = "Mike's Beer Station";
-		vineyard3.address = "1351 Dewing LN, Walnut Creek CA 94595";
-		vineyards.add(vineyard3);		
+					}
+				}, new Response.ErrorListener() {
+					@Override
+					public void onErrorResponse(VolleyError error) {
+						Log.e(TAG, "Error downloading types: ", error);
+						progress.dismiss();
+						errorDialog();
+					}
+				});
 		
-		response.vineyards = vineyards;
+	       //String httpPostBody="{ \"types\": [\"Red\"], \"varietals\" : [\"Pinot Noir\"] }";
+	       
+	       VineyardsRequestBody body = new VineyardsRequestBody();
+	       body.types = VarietalsApp.instance.prefs.getChosenTypes();
+	       body.varietals = VarietalsApp.instance.prefs.getChosenVarietals();
+	       
+	       String httpPostBody = body.toString();
+	       Log.i(TAG, "Setting request body: " + httpPostBody);
+	       
+		typesRequest.setBody(httpPostBody);		
 
-		displayVineyards(response);
+		// Add the request to the RequestQueue.
+		queue.add(typesRequest);
 	}
 
 	private void errorDialog() {
@@ -102,11 +114,11 @@ public class VineyardsListActivity extends TintedStatusBarActivity {
 				}).show();
 	}
 
-	private void displayVineyards(VineyardsResponse types) {
+	private void displayVineyards(List<Vineyard> vineyards) {
 
 		final LayoutInflater inflator = getLayoutInflater();
 
-		for (final Vineyard type : types.vineyards) {
+		for (final Vineyard type : vineyards) {
 
 			final ViewGroup vineyardContainer = (ViewGroup) inflator.inflate(
 					R.layout.activity_vineyards_item, vineyardsContainer, false);
@@ -124,7 +136,7 @@ public class VineyardsListActivity extends TintedStatusBarActivity {
 			vineyardNameView.setText(type.name);
 
 			final TextView vineyardAddressView = (TextView) vineyardContainer.findViewById(R.id.address);
-			vineyardAddressView.setText(type.address);
+			//vineyardAddressView.setText(type.address);
 			
 			vineyardsContainer.addView(vineyardContainer);
 
