@@ -33,8 +33,6 @@ public class VineyardsRequest extends Request<List<Vineyard>> {
 	 *
 	 * @param url
 	 *            URL of the request to make
-	 * @param clazz
-	 *            Relevant class object, for Gson's reflection
 	 * @param headers
 	 *            Map of request headers
 	 */
