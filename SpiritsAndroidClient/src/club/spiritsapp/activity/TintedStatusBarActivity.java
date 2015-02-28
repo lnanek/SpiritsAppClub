@@ -16,7 +16,7 @@ public class TintedStatusBarActivity extends Activity {
 		super.setContentView(layoutResID);
 		
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-			setTranslucentStatus(true);
+			setTranslucentStatus(this, true);
 		}
 		
 	    // create our manager instance after the content view is set
@@ -32,8 +32,8 @@ public class TintedStatusBarActivity extends Activity {
 	
 
 	@TargetApi(19) 
-	private void setTranslucentStatus(boolean on) {
-		Window win = getWindow();
+	public static void setTranslucentStatus(final Activity activity, final boolean on) {
+		Window win = activity.getWindow();
 		WindowManager.LayoutParams winParams = win.getAttributes();
 		final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
 		if (on) {

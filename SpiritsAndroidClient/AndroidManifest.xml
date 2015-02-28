@@ -17,10 +17,7 @@
         android:theme="@style/CustomActionBarTheme" >
         
         <activity android:name=".activity.SignInActivity" android:theme="@android:style/Theme.NoTitleBar" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity> 
         
         <activity android:name=".activity.ChooseTypesActivity">
@@ -30,6 +27,13 @@
         </activity> 
         
         <activity android:name=".activity.VineyardsActivity">
+        </activity> 
+        
+        <activity android:name=".activity.ViewVineyardActivity" android:theme="@android:style/Theme.NoTitleBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity> 
         
     </application>

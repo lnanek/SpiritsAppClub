@@ -5,7 +5,7 @@
     android:layout_marginBottom="10dp"
     android:background="#FFF"
     android:orientation="vertical"
-    tools:context=".VineyardsActivity" >
+    tools:context=".VineyardsListActivity" >
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            tools:context=".VineyardsActivity" >
+            tools:context=".VineyardsListActivity" >
 
             <TextView
                 android:id="@+id/name"

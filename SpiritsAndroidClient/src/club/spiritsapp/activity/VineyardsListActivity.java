@@ -4,16 +4,14 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -26,9 +24,9 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
-public class VineyardsActivity extends TintedStatusBarActivity {
+public class VineyardsListActivity extends TintedStatusBarActivity {
 
-	private static final String TAG = VineyardsActivity.class.getSimpleName();
+	private static final String TAG = VineyardsListActivity.class.getSimpleName();
 
 	private final Gson gson = new Gson();
 
@@ -112,6 +110,15 @@ public class VineyardsActivity extends TintedStatusBarActivity {
 
 			final ViewGroup vineyardContainer = (ViewGroup) inflator.inflate(
 					R.layout.activity_vineyards_item, vineyardsContainer, false);
+			
+			vineyardContainer.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+
+					final Intent intent = new Intent(VineyardsListActivity.this, ViewVineyardActivity.class);
+					startActivity(intent);					
+				}
+			});
 			
 			final TextView vineyardNameView = (TextView) vineyardContainer.findViewById(R.id.name);
 			vineyardNameView.setText(type.name);

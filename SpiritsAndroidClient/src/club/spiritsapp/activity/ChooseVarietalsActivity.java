@@ -64,7 +64,7 @@ public class ChooseVarietalsActivity extends TintedStatusBarActivity {
 			
 			@Override
 			public void onClick(View v) {
-				final Intent intent = new Intent(ChooseVarietalsActivity.this, VineyardsActivity.class);
+				final Intent intent = new Intent(ChooseVarietalsActivity.this, VineyardsListActivity.class);
 				startActivity(intent);
 				finish();
 			}
@@ -159,7 +159,7 @@ public class ChooseVarietalsActivity extends TintedStatusBarActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		if (item.getItemId() == R.id.next) {
-			final Intent intent = new Intent(this, VineyardsActivity.class);
+			final Intent intent = new Intent(this, VineyardsListActivity.class);
 			startActivity(intent);
 		}
 		
