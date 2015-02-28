@@ -307,6 +307,25 @@
                     android:textColor="#c8c8c8"
                     android:textSize="13sp" />
             </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="left"
+        		android:paddingLeft="16dp"
+        		android:paddingRight="80dp"
+                android:text="@string/example_description"
+                android:textColor="#c8c8c8"
+                android:textSize="13sp" />
+            
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/map"
+                />
+            
         </LinearLayout>
     </ScrollView>
 

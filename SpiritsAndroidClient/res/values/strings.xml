@@ -5,5 +5,10 @@
     <string name="choose_types_prompt">What type of wines are you interested in?</string>
     <string name="choose_varietals_prompt">What varietals are you interested in?</string>
     <string name="vineyards_prompt">Your Vineyard Recommendations</string>
+    <string name="example_description">
+        Visitors to Reata at Jamieson Ranch are treated to a hospitality experience like no other in the Napa Valley.\n\n
+    	JRV Signature Tasting - $15 per person. Enjoy our latest releases of award winning wines in a specially tailored wine tasting.\n\n  
+		JRV Reserve Tasting - $25 per person. Rejoice in our leading releases of award winning reserve wines in a uniquely customized wine tasting experience.    	
+    </string>
  
 </resources>
