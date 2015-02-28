@@ -136,10 +136,10 @@ public class VineyardsListActivity extends TintedStatusBarActivity {
 
         final LayoutInflater inflator = getLayoutInflater();
 
-        for (final Vineyard type : vineyards) {
+        for (final Vineyard vineyard : vineyards) {
 
-            type.samplePhotoResourceIds.add(SampleImages.getNextSampleResourceId());
-            type.samplePhotoResourceIds.addAll(Arrays.<Integer>asList(SampleImages.sampleImageResourceIds));
+            vineyard.samplePhotoResourceIds.add(SampleImages.getNextSampleResourceId());
+            vineyard.samplePhotoResourceIds.addAll(Arrays.<Integer>asList(SampleImages.sampleImageResourceIds));
 
 
             final ViewGroup vineyardContainer = (ViewGroup) inflator.inflate(
@@ -149,18 +149,22 @@ public class VineyardsListActivity extends TintedStatusBarActivity {
                 @Override
                 public void onClick(View v) {
                     final Intent intent = new Intent(VineyardsListActivity.this, ViewVineyardActivity.class);
+
+                    final String vineyardJson = new Gson().toJson(vineyard);
+                    intent.putExtra(ViewVineyardActivity.VINEYARD_EXTRA, vineyardJson);
+
                     startActivity(intent);
                 }
             });
 
             final TextView vineyardNameView = (TextView) vineyardContainer.findViewById(R.id.name);
-            vineyardNameView.setText(type.name);
+            vineyardNameView.setText(vineyard.name);
 
             final TextView vineyardAddressView = (TextView) vineyardContainer.findViewById(R.id.address);
-            vineyardAddressView.setText(null == type.address ? "" : type.address.toString());
+            vineyardAddressView.setText(null == vineyard.address ? "" : vineyard.address.toString());
 
             final ImageView vineyardImage = (ImageView) vineyardContainer.findViewById(R.id.vineyard_image);
-            vineyardImage.setImageResource(type.samplePhotoResourceIds.iterator().next());
+            vineyardImage.setImageResource(vineyard.samplePhotoResourceIds.iterator().next());
 
             vineyardsContainer.addView(vineyardContainer);
 

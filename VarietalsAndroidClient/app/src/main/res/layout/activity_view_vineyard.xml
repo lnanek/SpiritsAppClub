@@ -13,6 +13,7 @@
         android:layout_height="150dp" >
 
         <ImageView
+            android:id="@+id/vineyard_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
@@ -94,7 +95,6 @@
                     android:src="@drawable/ic_calendar" />
 
                 <TextView
-                    android:id="@+id/address"
                     android:layout_width="0px"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
