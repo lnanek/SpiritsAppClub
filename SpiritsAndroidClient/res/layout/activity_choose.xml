@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:keepScreenOn="true"
-    tools:context=".QuizActivity" >
+    tools:context=".ChooseTypesActivity" >
 
     <ImageView
         android:layout_width="match_parent"
@@ -17,14 +17,30 @@
         android:orientation="vertical"
         android:padding="10dp" >
 
+        <TextView
+            android:id="@+id/prompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/choose_types_prompt"
+            android:textSize="13sp"
+            android:textColor="#FFF" />
+                
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="1">        
+            
         <LinearLayout
             android:id="@+id/typesContainer"
             android:layout_width="match_parent"
-            android:layout_height="0px"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="10dp" >
-        </LinearLayout>
+            android:padding="10dp" />
+        
+        </ScrollView>
         
         <TextView
             android:id="@+id/skipButton"

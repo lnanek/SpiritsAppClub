@@ -20,7 +20,7 @@ public class SignInActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				final Intent intent = new Intent(SignInActivity.this, QuizActivity.class);
+				final Intent intent = new Intent(SignInActivity.this, ChooseTypesActivity.class);
 				startActivity(intent);
 				finish();
 			}

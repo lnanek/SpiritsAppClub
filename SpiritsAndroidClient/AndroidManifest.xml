@@ -22,7 +22,10 @@
             </intent-filter>
         </activity> 
         
-        <activity android:name=".QuizActivity">
+        <activity android:name=".ChooseTypesActivity">
+        </activity> 
+        
+        <activity android:name=".ChooseVarietalsActivity">
         </activity> 
         
     </application>
