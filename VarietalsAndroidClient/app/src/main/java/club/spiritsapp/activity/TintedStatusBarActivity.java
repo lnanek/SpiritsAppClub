@@ -9,7 +9,7 @@ import android.view.WindowManager;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
-public class TintedStatusBarActivity extends Activity {
+public abstract class TintedStatusBarActivity extends Activity {
 
 	@Override
 	public void setContentView(int layoutResID) {
@@ -27,9 +27,12 @@ public class TintedStatusBarActivity extends Activity {
 	    tintManager.setNavigationBarTintEnabled(true);
 	    
 	 // set a custom tint color for all system bars
-	    tintManager.setTintColor(Color.parseColor("#6f0254"));
+	    tintManager.setTintColor(getTintColor());
 	}
-	
+
+    public int getTintColor() {
+        return Color.parseColor("#6f0254");
+    }
 
 	@TargetApi(19) 
 	public static void setTranslucentStatus(final Activity activity, final boolean on) {

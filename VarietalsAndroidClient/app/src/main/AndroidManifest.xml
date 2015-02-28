@@ -31,11 +31,26 @@
         </activity> 
         
         <activity android:name=".activity.VineyardsListActivity" android:theme="@style/CustomActionBarTheme" >
-        </activity> 
-        
+        </activity>
+
+        <activity android:name=".activity.ChooseHotelActivity"
+            android:theme="@style/CustomActionBarTheme"
+            android:label="Book Hotels"
+            >
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+        </activity>
+
         <activity android:name=".activity.ViewVineyardActivity" android:theme="@android:style/Theme.NoTitleBar" >
-        </activity> 
-        
+        </activity>
+
+        <activity android:name=".activity.ViewItineraryActivity" android:theme="@style/CustomActionBarTheme" >
+        </activity>
+
     </application>
 
 </manifest>

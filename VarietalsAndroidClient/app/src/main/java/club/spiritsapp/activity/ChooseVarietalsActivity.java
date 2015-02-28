@@ -56,7 +56,10 @@ public class ChooseVarietalsActivity extends TintedStatusBarActivity {
 		
 		setContentView(R.layout.activity_choose);
 
-		getActionBar().setTitle("");
+        getActionBar().setLogo(null);
+        getActionBar().setIcon(null);
+        getActionBar().setDisplayShowHomeEnabled(false);
+        getActionBar().setDisplayUseLogoEnabled(false);
 
 		findViewById(R.id.skipButton).setOnClickListener(new View.OnClickListener() {
 			

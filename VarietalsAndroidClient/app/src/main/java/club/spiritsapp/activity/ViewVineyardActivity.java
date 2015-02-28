@@ -16,7 +16,7 @@ import club.spiritsapp.R;
 import club.spiritsapp.model.SampleImages;
 import club.spiritsapp.model.Vineyard;
 
-public class ViewVineyardActivity extends Activity {
+public class ViewVineyardActivity extends TintedStatusBarActivity {
 
     public static final String VINEYARD_EXTRA = ViewVineyardActivity.class.getName() + ".VINEYARD_EXTRA";
 
@@ -38,21 +38,7 @@ public class ViewVineyardActivity extends Activity {
                 vineyard = new Gson().fromJson(vineyardJson, Vineyard.class);
             }
         }
-		
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-			TintedStatusBarActivity.setTranslucentStatus(this, true);
-		}
 
-	    // create our manager instance after the content view is set
-	    SystemBarTintManager tintManager = new SystemBarTintManager(this);
-	    // enable status bar tint
-	    tintManager.setStatusBarTintEnabled(true);
-	    // enable navigation bar tint
-	    tintManager.setNavigationBarTintEnabled(true);
-	    
-	 // set a custom tint color for all system bars
-	    tintManager.setTintColor(Color.parseColor("#000000"));
-	    
 		findViewById(R.id.backButton).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -70,6 +56,23 @@ public class ViewVineyardActivity extends Activity {
         //vineyardImage.setImageResource(vineyard.samplePhotoResourceIds.iterator().next());
         vineyardImage.setImageResource(SampleImages.getNextSampleResourceId());
 
+        findViewById(R.id.addButton).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                final Intent intent = new Intent(ViewVineyardActivity.this, ViewItineraryActivity.class);
+
+                final String vineyardJson = new Gson().toJson(vineyard);
+                intent.putExtra(ViewItineraryActivity.VINEYARD_EXTRA, vineyardJson);
+
+                startActivity(intent);
+            }
+        });
+
 	}
+
+    public int getTintColor() {
+        return Color.parseColor("#000000");
+    }
 
 }

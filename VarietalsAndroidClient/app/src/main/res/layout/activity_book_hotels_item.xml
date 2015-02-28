@@ -12,11 +12,11 @@
         android:layout_height="150dp" >
 
         <ImageView
-            android:id="@+id/vineyard_image"
+            android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/im_landing_background" />
+            android:src="@drawable/sample_hotel" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -40,8 +40,17 @@
             android:layout_width="0px"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical"
-            tools:context=".VineyardsListActivity" >
+            android:orientation="vertical"  >
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="26dp"
+                android:paddingBottom="5dp"
+                android:text="$139"
+                android:textColor="#a6598e"
+                android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/name"
@@ -49,8 +58,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="26dp"
                 android:paddingBottom="5dp"
-                android:text="Jamieson Ranch Vineyards"
-                android:textColor="#000"
+                android:text="Best Western Premier Ivy Hotel Napa"
+                android:textColor="#585858"
                 android:textSize="13sp" />
 
             <TextView
@@ -58,7 +67,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="26dp"
-                android:text="1 Kirkland Ranch RD, Napa CA 94558"
+                android:text="Solano Avenue Napa CA"
                 android:textColor="#b8b8b8"
                 android:textSize="13sp" />
         </LinearLayout>

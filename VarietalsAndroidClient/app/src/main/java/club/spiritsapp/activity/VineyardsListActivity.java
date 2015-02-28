@@ -57,7 +57,10 @@ public class VineyardsListActivity extends TintedStatusBarActivity {
 
         setContentView(R.layout.activity_vineyards);
 
-        getActionBar().setTitle("");
+        getActionBar().setLogo(null);
+        getActionBar().setIcon(null);
+        getActionBar().setDisplayShowHomeEnabled(false);
+        getActionBar().setDisplayUseLogoEnabled(false);
 
         vineyardsContainer = (ViewGroup) findViewById(R.id.vineyardsContainer);
 

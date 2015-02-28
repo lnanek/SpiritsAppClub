@@ -1,0 +1,93 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="10dp"
+    android:background="#FFF"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".activity.ViewItineraryActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:text="Your Upcoming Itinerary"
+        android:textColor="#c7bc6c"
+        android:textSize="13sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:text="MARCH 15 - NAPA VALLEY"
+        android:textColor="#000000"
+        android:textSize="13sp" />
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:paddingTop="10dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/map" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingRight="48dp"
+        android:paddingTop="14dp">
+
+        <Button
+            android:id="@+id/bookHotelButton"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_gold"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:text="BOOK HOTEL"
+            android:textColor="#c7bc6c"
+            android:textSize="13sp" />
+
+        <Button
+            android:id="@+id/bookCarButton"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_gold"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:text="BOOK CAR"
+            android:textColor="#c7bc6c"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:text="10 AM"
+        android:textColor="#c7bc6c"
+        android:textSize="13sp" />
+
+    <ImageView
+        android:id="@+id/vineyard_image"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/sample_jamiesonranchvineyards" />
+
+</LinearLayout>

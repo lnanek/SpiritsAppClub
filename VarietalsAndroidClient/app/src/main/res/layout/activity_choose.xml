@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:keepScreenOn="true"
     android:fitsSystemWindows="true"
-    tools:context=".ChooseTypesActivity" >
+    tools:context=".activity.ChooseTypesActivity" >
 
     <ImageView
         android:layout_width="match_parent"

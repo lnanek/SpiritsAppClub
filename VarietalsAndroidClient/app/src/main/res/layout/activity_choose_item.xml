@@ -13,6 +13,6 @@
     android:textColor="#FFF"
     android:textSize="13sp"
     android:layout_margin="10dp"
-    tools:context=".ChooseTypesActivity" >
+    tools:context=".activity.ChooseTypesActivity" >
 
 </CheckBox>

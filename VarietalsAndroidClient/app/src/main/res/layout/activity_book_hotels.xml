@@ -5,7 +5,7 @@
     android:keepScreenOn="true"
     android:background="#FFF"
     android:fitsSystemWindows="true"
-    tools:context=".activity.VineyardsListActivity" >
+    tools:context=".activity.ChooseHotelActivity" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:paddingLeft="20dp"
-            android:text="@string/vineyards_prompt"
+            android:text="Near Napa Valley"
             android:textSize="13sp"
             android:textColor="#c7bc6c" />
                    
@@ -30,7 +30,7 @@
             android:layout_weight="1">        
             
         <LinearLayout
-            android:id="@+id/vineyardsContainer"
+            android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />
