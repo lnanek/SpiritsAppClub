@@ -32,7 +32,7 @@ public class VarietalsApp extends Application {
         //Fabric.with(this, new TwitterCore(authConfig));
 
         Fabric.with(this, new Twitter(authConfig));
-        
+
 	}	
 
 }

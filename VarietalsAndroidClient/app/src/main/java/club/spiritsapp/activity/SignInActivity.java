@@ -25,16 +25,7 @@ public class SignInActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.activity_sign_in);
-		
-		findViewById(R.id.signInButton).setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				final Intent intent = new Intent(SignInActivity.this, ChooseTypesActivity.class);
-				startActivity(intent);
-				finish();
-			}
-		});
+
 
         loginButton = (TwitterLoginButton)
                 findViewById(R.id.login_button);
@@ -52,6 +43,19 @@ public class SignInActivity extends Activity {
             @Override
             public void failure(TwitterException exception) {
                 // Do something on failure
+            }
+        });
+
+
+        findViewById(R.id.signInButton).setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                //final Intent intent = new Intent(SignInActivity.this, ChooseTypesActivity.class);
+                //startActivity(intent);
+                //finish();
+
+                loginButton.callOnClick();
             }
         });
 	}
