@@ -5,6 +5,7 @@ import java.util.Set;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
@@ -76,11 +77,16 @@ public class ChooseTypesActivity extends Activity {
 	}
 
 	private void requestTypes() {
+		
+		final ProgressDialog progress = new ProgressDialog(this);
+		progress.show();
+		
 		GsonRequest<TypesResponse> typesRequest = new GsonRequest<TypesResponse>(
 				URL, TypesResponse.class, null,
 				new Response.Listener<TypesResponse>() {
 					@Override
 					public void onResponse(TypesResponse response) {
+						progress.dismiss();
 						displayTypes(response);
 
 					}
@@ -88,6 +94,7 @@ public class ChooseTypesActivity extends Activity {
 					@Override
 					public void onErrorResponse(VolleyError error) {
 						Log.e(TAG, "Error downloading types: ", error);
+						progress.dismiss();
 						errorDialog();
 					}
 				});
@@ -151,7 +158,7 @@ public class ChooseTypesActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu items for use in the action bar
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.quiz, menu);
+		inflater.inflate(R.menu.choose, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
 

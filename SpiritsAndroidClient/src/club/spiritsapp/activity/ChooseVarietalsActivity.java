@@ -4,13 +4,17 @@ import java.util.Set;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -56,6 +60,16 @@ public class ChooseVarietalsActivity extends Activity {
 
 		getActionBar().setTitle("");
 
+		findViewById(R.id.skipButton).setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				final Intent intent = new Intent(ChooseVarietalsActivity.this, VineyardsActivity.class);
+				startActivity(intent);
+				finish();
+			}
+		});
+		
 		typesContainer = (ViewGroup) findViewById(R.id.typesContainer);
 		
 		final TextView prompt = (TextView) findViewById(R.id.prompt);
@@ -66,11 +80,16 @@ public class ChooseVarietalsActivity extends Activity {
 	}
 
 	private void requestTypes() {
+		
+		final ProgressDialog progress = new ProgressDialog(this);
+		progress.show();
+		
 		GsonRequest<VarietalsResponse> typesRequest = new GsonRequest<VarietalsResponse>(
 				URL, VarietalsResponse.class, null,
 				new Response.Listener<VarietalsResponse>() {
 					@Override
 					public void onResponse(VarietalsResponse response) {
+						progress.dismiss();
 						displayVarietals(response);
 
 					}
@@ -78,6 +97,7 @@ public class ChooseVarietalsActivity extends Activity {
 					@Override
 					public void onErrorResponse(VolleyError error) {
 						Log.e(TAG, "Error downloading types: ", error);
+						progress.dismiss();
 						errorDialog();
 					}
 				});
@@ -131,8 +151,18 @@ public class ChooseVarietalsActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu items for use in the action bar
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.quiz, menu);
+		inflater.inflate(R.menu.choose, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		if (item.getItemId() == R.id.next) {
+			final Intent intent = new Intent(this, VineyardsActivity.class);
+			startActivity(intent);
+		}
+		
+		return super.onOptionsItemSelected(item);
+	}
 }
