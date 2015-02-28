@@ -96,11 +96,6 @@ public class ViewItineraryActivity extends TintedStatusBarActivity {
             }
         });
 
-        //ListView listView = (ListView) findViewById(android.R.id.list);
-        //listView.setOnTouchListener(new ShowHideOnScroll(fab));
-
-
-
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             Api21Outliner.setOutline(this, shareButton);
         }

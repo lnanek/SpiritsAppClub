@@ -8,7 +8,7 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
-        applicationId "varietals.club.varietalsclub"
+        applicationId "club.spiritsapp"
         minSdkVersion 19
         targetSdkVersion 21
         versionCode 1
@@ -37,4 +37,12 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.0'
 
     compile 'com.shamanland:fab:0.0.8'
+    
+    
+    compile 'com.google.android.gms:play-services-wearable:6.5.+'
+    compile 'com.android.support:support-v13:21.0.+'
+    compile project(':Shared')
+    wearApp project(':Wearable')
+    
+    
 }
