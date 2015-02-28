@@ -1,0 +1,155 @@
+package club.spiritsapp.activity;
+
+import java.util.HashSet;
+import java.util.List;
+
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import club.spiritsapp.R;
+import club.spiritsapp.VarietalsApp;
+import club.spiritsapp.VineyardsRequest;
+import club.spiritsapp.model.Vineyard;
+import club.spiritsapp.model.VineyardsRequestBody;
+
+import com.android.volley.Request.Method;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+
+public class VineyardsListActivity extends TintedStatusBarActivity {
+
+	private static final String TAG = VineyardsListActivity.class.getSimpleName();
+
+	private final Gson gson = new Gson();
+
+	private static final String URL = "http://varietals-server.cfapps.io/user/123/suggestions";
+
+	private ViewGroup vineyardsContainer;
+
+	// Instantiate the RequestQueue.
+	RequestQueue queue;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		queue = Volley.newRequestQueue(this);
+
+		setContentView(R.layout.activity_vineyards);
+
+		getActionBar().setTitle("");
+
+		vineyardsContainer = (ViewGroup) findViewById(R.id.vineyardsContainer);
+
+		requestVineyards();
+
+	}
+
+	private void requestVineyards() {
+		final ProgressDialog progress = new ProgressDialog(this);
+		progress.show();
+		
+		VineyardsRequest typesRequest = new VineyardsRequest(
+				Method.POST, URL, null,
+				new Response.Listener<List<Vineyard>>() {
+					@Override
+					public void onResponse(List<Vineyard> response) {
+						progress.dismiss();
+						Log.d(TAG, "Downloaded: " + response);
+						displayVineyards(response);
+
+					}
+				}, new Response.ErrorListener() {
+					@Override
+					public void onErrorResponse(VolleyError error) {
+						Log.e(TAG, "Error downloading types: ", error);
+						progress.dismiss();
+						errorDialog();
+					}
+				});
+		
+	       //String httpPostBody="{ \"types\": [\"Red\"], \"varietals\" : [\"Pinot Noir\"] }";
+	       
+	       VineyardsRequestBody body = new VineyardsRequestBody();
+	       body.types = VarietalsApp.instance.prefs.getChosenTypes();
+	       body.varietals = VarietalsApp.instance.prefs.getChosenVarietals();
+	       
+	       String httpPostBody = body.toString();
+	       Log.i(TAG, "Setting request body: " + httpPostBody);
+	       
+		typesRequest.setBody(httpPostBody);		
+
+		// Add the request to the RequestQueue.
+		queue.add(typesRequest);
+	}
+
+	private void errorDialog() {
+		new AlertDialog.Builder(this).setTitle("Error connecting")
+				.setPositiveButton("Retry", new OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						requestVineyards();
+					}
+				}).setNegativeButton("Cancel", new OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						finish();
+
+					}
+				}).show();
+	}
+
+	private void displayVineyards(List<Vineyard> vineyards) {
+
+		final LayoutInflater inflator = getLayoutInflater();
+
+		for (final Vineyard type : vineyards) {
+
+			final ViewGroup vineyardContainer = (ViewGroup) inflator.inflate(
+					R.layout.activity_vineyards_item, vineyardsContainer, false);
+			
+			vineyardContainer.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+
+					final Intent intent = new Intent(VineyardsListActivity.this, ViewVineyardActivity.class);
+					startActivity(intent);					
+				}
+			});
+			
+			final TextView vineyardNameView = (TextView) vineyardContainer.findViewById(R.id.name);
+			vineyardNameView.setText(type.name);
+
+			final TextView vineyardAddressView = (TextView) vineyardContainer.findViewById(R.id.address);
+			//vineyardAddressView.setText(type.address);
+			
+			vineyardsContainer.addView(vineyardContainer);
+
+		}
+
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu items for use in the action bar
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.vineyards, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+}
