@@ -1,4 +1,7 @@
-package club.spiritsapp;
+package club.spiritsapp.activity;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -14,6 +17,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import club.spiritsapp.GsonRequest;
+import club.spiritsapp.R;
+import club.spiritsapp.VarietalsApp;
+import club.spiritsapp.model.TypesResponse;
+import club.spiritsapp.model.VarietalType;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -59,6 +69,8 @@ public class ChooseTypesActivity extends Activity {
 		
 		typesContainer = (ViewGroup) findViewById(R.id.typesContainer);
 
+		VarietalsApp.instance.prefs.setChoseTypes(new HashSet<String>());
+		
 		requestTypes();
 
 	}
@@ -111,6 +123,24 @@ public class ChooseTypesActivity extends Activity {
 			final CheckBox checkbox = (CheckBox) inflator.inflate(
 					R.layout.activity_choose_item, typesContainer, false);
 			checkbox.setText(type.name);
+			
+			checkbox.setOnCheckedChangeListener(new OnCheckedChangeListener() {				
+				@Override
+				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+					
+					final Set<String> currentTypes = VarietalsApp.instance.prefs.getChosenTypes();
+										
+					if (isChecked) {
+						currentTypes.add(type.id);
+					} else {
+						currentTypes.remove(type.id);
+					}
+					
+					VarietalsApp.instance.prefs.setChoseTypes(currentTypes);
+					
+				}
+			});
+			
 			typesContainer.addView(checkbox);
 
 		}

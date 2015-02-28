@@ -1,4 +1,6 @@
-package club.spiritsapp;
+package club.spiritsapp.activity;
+
+import java.util.Set;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -12,6 +14,15 @@ import android.view.MenuInflater;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import club.spiritsapp.GsonRequest;
+import club.spiritsapp.R;
+import club.spiritsapp.VarietalsApp;
+import club.spiritsapp.R.id;
+import club.spiritsapp.R.layout;
+import club.spiritsapp.R.menu;
+import club.spiritsapp.R.string;
+import club.spiritsapp.model.Varietal;
+import club.spiritsapp.model.VarietalsResponse;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -60,7 +71,7 @@ public class ChooseVarietalsActivity extends Activity {
 				new Response.Listener<VarietalsResponse>() {
 					@Override
 					public void onResponse(VarietalsResponse response) {
-						displayTypes(response);
+						displayVarietals(response);
 
 					}
 				}, new Response.ErrorListener() {
@@ -93,15 +104,23 @@ public class ChooseVarietalsActivity extends Activity {
 				}).show();
 	}
 
-	private void displayTypes(VarietalsResponse types) {
+	private void displayVarietals(VarietalsResponse varietals) {
 
 		final LayoutInflater inflator = getLayoutInflater();
 
-		for (final Varietal type : types.varietals) {
+		final Set<String> currentTypes = VarietalsApp.instance.prefs.getChosenTypes();
+		Log.i(TAG, "Users chosen types: " + currentTypes);
+		
+		for (final Varietal varietal : varietals.varietals) {
+			
+			if (!currentTypes.contains(varietal.classification)) {
+				Log.i(TAG, "Hiding varietal due to not a user selected type: " + varietal);
+				continue;
+			}
 
 			final CheckBox checkbox = (CheckBox) inflator.inflate(
 					R.layout.activity_choose_item, typesContainer, false);
-			checkbox.setText(type.name);
+			checkbox.setText(varietal.name);
 			typesContainer.addView(checkbox);
 
 		}

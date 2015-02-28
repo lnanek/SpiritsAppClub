@@ -1,4 +1,4 @@
-package club.spiritsapp;
+package club.spiritsapp.model;
 
 import com.google.gson.Gson;
 

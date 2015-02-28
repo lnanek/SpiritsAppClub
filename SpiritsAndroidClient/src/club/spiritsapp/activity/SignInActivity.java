@@ -1,5 +1,8 @@
-package club.spiritsapp;
+package club.spiritsapp.activity;
 
+import club.spiritsapp.R;
+import club.spiritsapp.R.id;
+import club.spiritsapp.R.layout;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

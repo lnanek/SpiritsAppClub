@@ -11,21 +11,22 @@
 
     <application
         android:allowBackup="true"
+        android:name=".VarietalsApp"
         android:icon="@drawable/ic_logo"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         
-        <activity android:name=".SignInActivity" android:theme="@android:style/Theme.NoTitleBar" >
+        <activity android:name=".activity.SignInActivity" android:theme="@android:style/Theme.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity> 
         
-        <activity android:name=".ChooseTypesActivity">
+        <activity android:name=".activity.ChooseTypesActivity">
         </activity> 
         
-        <activity android:name=".ChooseVarietalsActivity">
+        <activity android:name=".activity.ChooseVarietalsActivity">
         </activity> 
         
     </application>
