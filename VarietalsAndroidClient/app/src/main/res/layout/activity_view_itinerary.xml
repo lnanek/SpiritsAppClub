@@ -105,7 +105,7 @@
         android:layout_marginRight="@dimen/add_button_margin"
         android:layout_marginBottom="@dimen/add_button_margin"
         android:layout_gravity="bottom|right"
-        android:src="@drawable/btn_share_normal"
+        android:src="@drawable/ripple"
         app:floatingActionButtonColor="#e1cc16"
         app:floatingActionButtonSize="normal"
         />

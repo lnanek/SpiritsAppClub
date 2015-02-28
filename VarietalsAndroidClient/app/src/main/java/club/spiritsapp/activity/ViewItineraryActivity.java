@@ -1,6 +1,8 @@
 package club.spiritsapp.activity;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Outline;
@@ -98,15 +100,27 @@ public class ViewItineraryActivity extends TintedStatusBarActivity {
         //listView.setOnTouchListener(new ShowHideOnScroll(fab));
 
 
-        ViewOutlineProvider viewOutlineProvider = new ViewOutlineProvider() {
-            @Override
-            public void getOutline(View view, Outline outline) {
-                // Or read size directly from the view's width/height
-                int size = getResources().getDimensionPixelSize(R.dimen.diameter);
-                outline.setOval(0, 0, size, size);
-            }
-        };
-        shareButton.setOutlineProvider(viewOutlineProvider);
+
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            Api21Outliner.setOutline(this, shareButton);
+        }
 	}
+
+    @TargetApi(21)
+    public static class Api21Outliner {
+
+        public static void setOutline(final Context context, final FloatingActionButton shareButton) {
+
+            ViewOutlineProvider viewOutlineProvider = new ViewOutlineProvider() {
+                @Override
+                public void getOutline(View view, Outline outline) {
+                    // Or read size directly from the view's width/height
+                    int size = context.getResources().getDimensionPixelSize(R.dimen.diameter);
+                    outline.setOval(0, 0, size, size);
+                }
+            };
+            shareButton.setOutlineProvider(viewOutlineProvider);
+        }
+    }
 
 }
