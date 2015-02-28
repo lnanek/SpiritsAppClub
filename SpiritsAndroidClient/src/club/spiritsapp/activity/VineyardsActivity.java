@@ -26,7 +26,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
-public class VineyardsActivity extends Activity {
+public class VineyardsActivity extends TintedStatusBarActivity {
 
 	private static final String TAG = VineyardsActivity.class.getSimpleName();
 

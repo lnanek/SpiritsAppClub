@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:keepScreenOn="true"
     android:background="#FFF"
+    android:fitsSystemWindows="true"
     tools:context=".VineyardsActivity" >
 
     <LinearLayout

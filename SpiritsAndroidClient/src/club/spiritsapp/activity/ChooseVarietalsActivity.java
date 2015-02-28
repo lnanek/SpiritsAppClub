@@ -34,7 +34,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
-public class ChooseVarietalsActivity extends Activity {
+public class ChooseVarietalsActivity extends TintedStatusBarActivity {
 
 	private static final String TAG = ChooseVarietalsActivity.class.getSimpleName();
 
