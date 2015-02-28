@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 
@@ -36,6 +38,8 @@ public class QuizActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.activity_quiz);
+		
+		getActionBar().setTitle("");
 		
 		typesContainer = (ViewGroup) findViewById(R.id.typesContainer);
 
@@ -79,6 +83,14 @@ public class QuizActivity extends Activity {
 						
 		}
 		
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    // Inflate the menu items for use in the action bar
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.quiz, menu);
+	    return super.onCreateOptionsMenu(menu);
 	}
 
 }
