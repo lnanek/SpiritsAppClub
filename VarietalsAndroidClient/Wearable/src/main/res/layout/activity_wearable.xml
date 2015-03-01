@@ -1,16 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="15dp"
     tools:context=".WearableActivity">
 
     <TextView
+        android:paddingTop="25dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hellow World"
-        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:text="2010 Jamieson Ranch Vineyards, Coombsville, Cabernet Sauvignon"
+        android:textSize="13sp"
+        android:textColor="#585858"
         />
 
-</RelativeLayout>
+    <TextView
+        android:paddingTop="5dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your Rating"
+        android:visibility="gone"
+        android:textSize="10sp"
+        android:textColor="#c7bc6c"
+        />
+
+    <LinearLayout
+        android:paddingTop="5dp"
+        android:id="@+id/wineRating"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="0px"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:src="@drawable/ic_full_glass" />
+
+        <ImageView
+            android:layout_width="0px"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:src="@drawable/ic_full_glass" />
+
+        <ImageView
+            android:layout_width="0px"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:src="@drawable/ic_half_glass" />
+
+        <ImageView
+            android:layout_width="0px"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:src="@drawable/ic_empty_glass" />
+
+        <ImageView
+            android:layout_width="0px"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:src="@drawable/ic_empty_glass" />
+
+    </LinearLayout>
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:thumb="@drawable/thumb"
+        android:progress="50"
+        />
+
+
+</LinearLayout>
