@@ -27,10 +27,7 @@
             android:theme="@android:style/Theme.NoTitleBar">
 
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
 
         </activity>
 
@@ -54,24 +51,23 @@
             android:label="Book Hotels"
             android:screenOrientation="portrait"
             android:theme="@style/CustomActionBarTheme">
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
         </activity>
 
         <activity
             android:name=".activity.ViewVineyardActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar"></activity>
-
+            android:theme="@android:style/Theme.NoTitleBar">
+        </activity>
 
         <activity
             android:name=".activity.ResultsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/CustomActionBarTheme">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
 
@@ -79,12 +75,6 @@
             android:name=".activity.ViewItineraryActivity"
             android:screenOrientation="portrait"
             android:theme="@style/CustomActionBarTheme">
-            <!--
-                        <intent-filter>
-                            <action android:name="android.intent.action.MAIN" />
-                            <category android:name="android.intent.category.LAUNCHER" />
-                        </intent-filter>
-            -->
         </activity>
 
         <meta-data

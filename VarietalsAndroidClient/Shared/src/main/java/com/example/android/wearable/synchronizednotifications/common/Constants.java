@@ -29,5 +29,7 @@ public final class Constants {
 
 
     public static final String START_RESULTS_PATH = "/START_RESULTS_PATH";
+    public static final String START_RESULTS_TIMESTAMP = "timestamp";
+    public static final String START_RESULTS_TASTING = "tasting";
 
 }

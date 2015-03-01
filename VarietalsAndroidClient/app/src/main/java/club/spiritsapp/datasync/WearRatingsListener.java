@@ -22,6 +22,7 @@ import android.util.Log;
 import com.example.android.wearable.synchronizednotifications.common.Constants;
 import com.google.android.gms.wearable.DataEvent;
 import com.google.android.gms.wearable.DataEventBuffer;
+import com.google.android.gms.wearable.DataMapItem;
 import com.google.android.gms.wearable.WearableListenerService;
 
 import club.spiritsapp.activity.ResultsActivity;
@@ -56,11 +57,17 @@ public class WearRatingsListener extends WearableListenerService
             if (dataEvent.getType() == DataEvent.TYPE_CHANGED) {
                 if (Constants.START_RESULTS_PATH.equals(dataEvent.getDataItem().getUri().getPath())) {
 
-                    //DataMapItem dataMapItem = DataMapItem.fromDataItem(dataEvent.getDataItem());
+                    DataMapItem dataMapItem = DataMapItem.fromDataItem(dataEvent.getDataItem());
                     //String title = dataMapItem.getDataMap().getString(Constants.START_RATINGS_TITLE);
                     //String content = dataMapItem.getDataMap().getString(Constants.START_RATINGS_CONTENT);
 
+
+                    String json = dataMapItem.getDataMap().getString(Constants.START_RESULTS_TASTING);
+
                     final Intent intent = new Intent(getApplicationContext(), ResultsActivity.class);
+
+                    intent.putExtra(Constants.START_RESULTS_TASTING, json);
+
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
 

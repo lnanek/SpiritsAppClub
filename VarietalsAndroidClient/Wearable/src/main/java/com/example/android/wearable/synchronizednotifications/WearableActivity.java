@@ -31,9 +31,15 @@ import android.widget.Toast;
 
 import com.example.android.wearable.synchronizednotifications.datasync.PhoneResultsStarter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import club.spiritsapp.R;
+import club.spiritsapp.model.Rating;
+import club.spiritsapp.model.TastingSession;
+import club.spiritsapp.model.Varietal;
+import club.spiritsapp.model.VarietalType;
+import club.spiritsapp.model.Wine;
 
 public class WearableActivity extends Activity {
 
@@ -49,15 +55,58 @@ public class WearableActivity extends Activity {
 
     TextView speechResult;
 
-    private String[] wineDescriptions = new String[] {
-            "2010 Jamieson Ranch Vineyards, Coombsville, Cabernet Sauvignon",
-            "2001 Acacia Vineyards, Pinot Noir",
-            "2014 Tusk Reserve Red"
-    };
+    private ArrayList<Wine> wines = new ArrayList<Wine>();
+    {
+        {
+            final Wine wine1 = new Wine();
+            wine1.name = "2010 JAMIESON RANCH VINEYARDS, COOMBSVILLE, CABERNET SAUVIGNON";
+            wine1.varietalType = new VarietalType();
+            wine1.varietalType.id = "RED";
+            wine1.varietal = new Varietal();
+            wine1.varietal.id = "CABERNET SAUVIGNON";
+            wines.add(wine1);
+        }
+
+        {
+            final Wine wine2 = new Wine();
+            wine2.name = "2001 ARTESA VINEYARDS & WINERY, PINOT";
+            wine2.varietalType = new VarietalType();
+            wine2.varietalType.id = "RED";
+            wine2.varietal = new Varietal();
+            wine2.varietal.id = "PINOT NOIR";
+            wines.add(wine2);
+        }
+
+        {
+            final Wine wine3 = new Wine();
+            wine3.name = "1981 CARTLIDGE & BROWNE WINERY, CHARDONNAY";
+            wine3.varietalType = new VarietalType();
+            wine3.varietalType.id = "WHITE";
+            wine3.varietal = new Varietal();
+            wine3.varietal.id = "CHARDONNAY";
+            wines.add(wine3);
+        }
+
+        {
+            final Wine wine4 = new Wine();
+            wine4.name = "2006 REYNOLDS FAMILY WINERY, NAUGHTY STICKY";
+            wine4.varietalType = new VarietalType();
+            wine4.varietalType.id = "DESSERT";
+            wine4.varietal = new Varietal();
+            wine4.varietal.id = "CHARDONNAY";
+            wines.add(wine4);
+        }
+    }
 
     private int currentWineIndex = 0;
 
     private boolean currentModeIsRating = true;
+
+    private int currentRating;
+
+    private String currentComment;
+
+    private TastingSession session = new TastingSession();
 
     private void nextPrompt() {
         if ( currentModeIsRating ) {
@@ -75,15 +124,22 @@ public class WearableActivity extends Activity {
 
 
         Log.i(TAG, "nextPrompt going to next wine");
+
+        final Rating rating = new Rating();
+        rating.wine = wines.get(currentWineIndex);
+        rating.score = currentRating;
+        rating.comment = currentComment;
+        session.ratings.add(rating);
+
         currentWineIndex++;
-        if ( currentWineIndex == wineDescriptions.length ) {
+        if ( currentWineIndex == wines.size() ) {
             finish();
 
             final Toast toast = Toast.makeText(this, "Done rating!", Toast.LENGTH_LONG);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
 
-            new PhoneResultsStarter().connectAndSend(this);
+            new PhoneResultsStarter().connectAndSend(this, session);
 
             return;
         }
@@ -96,7 +152,7 @@ public class WearableActivity extends Activity {
         speechResult.setVisibility(View.GONE);
         currentModeIsRating = true;
 
-        prompt.setText(wineDescriptions[currentWineIndex]);
+        prompt.setText(wines.get(currentWineIndex).name);
         seekBar.setProgress(50);
     }
 
@@ -119,7 +175,7 @@ public class WearableActivity extends Activity {
         });
 
         prompt = (TextView) findViewById(R.id.prompt);
-        prompt.setText(wineDescriptions[0]);
+        prompt.setText(wines.get(currentWineIndex).name);
 
         wineRating = (ViewGroup) findViewById(R.id.wineRating);
         final int wineImageCount = wineRating.getChildCount();
@@ -129,6 +185,7 @@ public class WearableActivity extends Activity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 setWineRating(progress);
+                currentRating = progress;
             }
 
             @Override
@@ -243,7 +300,7 @@ public class WearableActivity extends Activity {
                 speechResult.setText(spokenText);
 
             }
-
+            currentComment = spokenText;
             // Do something with spokenText
         }
         super.onActivityResult(requestCode, resultCode, data);
