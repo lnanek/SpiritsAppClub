@@ -65,6 +65,9 @@ public class WearableActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Log.i(TAG, "Started with intent: " + getIntent());
+
         setContentView(R.layout.activity_wearable);
 
         prompt = (TextView) findViewById(R.id.prompt);

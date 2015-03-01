@@ -12,6 +12,7 @@ import android.graphics.Outline;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewOutlineProvider;
 import android.view.Window;
@@ -23,6 +24,7 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.shamanland.fab.FloatingActionButton;
 
 import club.spiritsapp.R;
+import club.spiritsapp.datasync.WearableAppStarter;
 import club.spiritsapp.model.SampleImages;
 import club.spiritsapp.model.Vineyard;
 
@@ -123,7 +125,14 @@ public class ViewItineraryActivity extends TintedStatusBarActivity {
                 view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        dialog.dismiss();
+
+                        //final Intent intent = new Intent("club.spiritsapp.ACTION.openWearActivity");
+                        //Log.i(TAG, "Starting wearable intent: " + intent);
+                        //startActivity(intent);
+                        //dialog.dismiss();
+
+                        new WearableAppStarter().connectAndSend(ViewItineraryActivity.this);
+
                     }
                 });
 

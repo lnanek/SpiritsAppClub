@@ -47,119 +47,43 @@ import club.spiritsapp.R;
  * dismiss that notification.
  */
 public class NotificationUpdateService extends WearableListenerService
-        implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
-        ResultCallback<DataApi.DeleteDataItemsResult> {
+         {
 
-    private static final String TAG = "NotificationUpdate";
-    private GoogleApiClient mGoogleApiClient;
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addApi(Wearable.API)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .build();
-    }
+    private static final String TAG = NotificationUpdateService.class.getSimpleName();
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (null != intent) {
             String action = intent.getAction();
-            if (Constants.ACTION_DISMISS.equals(action)) {
-                // We need to dismiss the wearable notification. We delete the data item that
-                // created the notification and that is how we inform the phone
-                int notificationId = intent.getIntExtra(Constants.KEY_NOTIFICATION_ID, -1);
-                if (notificationId == Constants.BOTH_ID) {
-                    dismissPhoneNotification(notificationId);
-                }
-            }
+            Log.i(TAG, "stated with intent: " + action);
         }
         return super.onStartCommand(intent, flags, startId);
     }
 
-    /**
-     * Dismisses the phone notification, via a {@link android.app.PendingIntent} that is triggered
-     * when the user dismisses the local notification. Deleting the corresponding data item notifies
-     * the {@link com.google.android.gms.wearable.WearableListenerService} on the phone that the
-     * matching notification on the phone side should be removed.
-     */
-    private void dismissPhoneNotification(int id) {
-        mGoogleApiClient.connect();
-    }
-
     @Override
     public void onDataChanged(DataEventBuffer dataEvents) {
-        for (DataEvent dataEvent : dataEvents) {
+        Log.i(TAG, "onDataChanged dataEvents = " + dataEvents);
+
+        for(DataEvent dataEvent: dataEvents) {
+            Log.i(TAG, "onDataChanged dataEvent = " + dataEvent);
+
             if (dataEvent.getType() == DataEvent.TYPE_CHANGED) {
-                DataMap dataMap = DataMapItem.fromDataItem(dataEvent.getDataItem()).getDataMap();
-                String content = dataMap.getString(Constants.KEY_CONTENT);
-                String title = dataMap.getString(Constants.KEY_TITLE);
-                if (Constants.WATCH_ONLY_PATH.equals(dataEvent.getDataItem().getUri().getPath())) {
-                    buildWearableOnlyNotification(title, content, false);
-                } else if (Constants.BOTH_PATH.equals(dataEvent.getDataItem().getUri().getPath())) {
-                    buildWearableOnlyNotification(title, content, true);
-                }
-            } else if (dataEvent.getType() == DataEvent.TYPE_DELETED) {
-                if (Log.isLoggable(TAG, Log.DEBUG)) {
-                    Log.d(TAG, "DataItem deleted: " + dataEvent.getDataItem().getUri().getPath());
-                }
-                if (Constants.BOTH_PATH.equals(dataEvent.getDataItem().getUri().getPath())) {
-                    // Dismiss the corresponding notification
-                    ((NotificationManager) getSystemService(NOTIFICATION_SERVICE))
-                            .cancel(Constants.WATCH_ONLY_ID);
+                if (Constants.NOTIFICATION_PATH.equals(dataEvent.getDataItem().getUri().getPath())) {
+
+                    //DataMapItem dataMapItem = DataMapItem.fromDataItem(dataEvent.getDataItem());
+                    //String title = dataMapItem.getDataMap().getString(Constants.NOTIFICATION_TITLE);
+                    //String content = dataMapItem.getDataMap().getString(Constants.NOTIFICATION_CONTENT);
+
+                    final Intent intent = new Intent(getApplicationContext(), WearableActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+
+
+                    Log.i(TAG, "starting: " + intent);
+
                 }
             }
         }
     }
 
-    /**
-     * Builds a simple notification on the wearable.
-     */
-    private void buildWearableOnlyNotification(String title, String content,
-            boolean withDismissal) {
-        Notification.Builder builder = new Notification.Builder(this)
-                .setSmallIcon(R.drawable.ic_logo)
-                .setContentTitle(title)
-                .setContentText(content);
-
-        if (withDismissal) {
-            Intent dismissIntent = new Intent(Constants.ACTION_DISMISS);
-            dismissIntent.putExtra(Constants.KEY_NOTIFICATION_ID, Constants.BOTH_ID);
-            PendingIntent pendingIntent = PendingIntent
-                    .getService(this, 0, dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-            builder.setDeleteIntent(pendingIntent);
-        }
-
-        ((NotificationManager) getSystemService(NOTIFICATION_SERVICE))
-                .notify(Constants.WATCH_ONLY_ID, builder.build());
-    }
-
-    @Override
-    public void onConnected(Bundle bundle) {
-        final Uri dataItemUri =
-                new Uri.Builder().scheme(WEAR_URI_SCHEME).path(Constants.BOTH_PATH).build();
-        if (Log.isLoggable(TAG, Log.DEBUG)) {
-            Log.d(TAG, "Deleting Uri: " + dataItemUri.toString());
-        }
-        Wearable.DataApi.deleteDataItems(
-                mGoogleApiClient, dataItemUri).setResultCallback(this);
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-    }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-    }
-
-    @Override
-    public void onResult(DataApi.DeleteDataItemsResult deleteDataItemsResult) {
-        if (!deleteDataItemsResult.getStatus().isSuccess()) {
-            Log.e(TAG, "dismissWearableNotification(): failed to delete DataItem");
-        }
-        mGoogleApiClient.disconnect();
-    }
 }
