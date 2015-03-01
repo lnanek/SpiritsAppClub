@@ -29,6 +29,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.android.wearable.synchronizednotifications.datasync.PhoneResultsStarter;
+
 import java.util.List;
 
 import club.spiritsapp.R;
@@ -80,6 +82,8 @@ public class WearableActivity extends Activity {
             final Toast toast = Toast.makeText(this, "Done rating!", Toast.LENGTH_LONG);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
+
+            new PhoneResultsStarter().connectAndSend(this);
 
             return;
         }
