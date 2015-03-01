@@ -49,14 +49,9 @@ public class VineyardsListActivity extends TintedStatusBarActivity {
 
     private ViewGroup vineyardsContainer;
 
-    // Instantiate the RequestQueue.
-    RequestQueue queue;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        queue = Volley.newRequestQueue(this);
 
         setContentView(R.layout.activity_vineyards);
 
@@ -108,7 +103,7 @@ public class VineyardsListActivity extends TintedStatusBarActivity {
         typesRequest.setBody(httpPostBody);
 
         // Add the request to the RequestQueue.
-        queue.add(typesRequest);
+        NetworkConstants.add(this, typesRequest);
     }
 
     private void errorDialog() {

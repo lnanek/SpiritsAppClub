@@ -38,6 +38,7 @@ import club.spiritsapp.model.HotelsResponse;
 import club.spiritsapp.model.TypesResponse;
 import club.spiritsapp.model.VarietalType;
 import club.spiritsapp.network.GsonRequest;
+import club.spiritsapp.network.NetworkConstants;
 
 public class ChooseHotelActivity extends TintedStatusBarActivity {
 
@@ -62,15 +63,10 @@ public class ChooseHotelActivity extends TintedStatusBarActivity {
 
 	private ViewGroup typesContainer;
 
-	// Instantiate the RequestQueue.
-	RequestQueue queue;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		queue = Volley.newRequestQueue(this);
-		
 		setContentView(R.layout.activity_book_hotels);
 
         getActionBar().setLogo(null);
@@ -109,7 +105,7 @@ public class ChooseHotelActivity extends TintedStatusBarActivity {
 					}
 				});
 		// Add the request to the RequestQueue.
-		queue.add(typesRequest);
+		NetworkConstants.add(this, typesRequest);
 
 	}
 

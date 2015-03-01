@@ -3,16 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:background="@drawable/btn_landing"
+    android:background="@drawable/btn_gold"
     android:gravity="left|center_vertical"
-    android:paddingBottom="34dp"
-    android:paddingLeft="20dp"
     android:paddingRight="20dp"
-    android:paddingTop="34dp"
+    android:drawablePadding="20dp"
     android:text="Red"
     android:textColor="#777775"
-    android:textSize="13sp"
+    android:textSize="16sp"
     android:layout_margin="3dp"
-    tools:context=".activity.ChooseTypesActivity" >
+    tools:context=".activity.ChooseTypesActivity"
+    android:button="@null"
+    android:drawableLeft="@drawable/ic_dessert_wine_checkbox"
+
+    >
 
 </CheckBox>

@@ -7,17 +7,203 @@
     android:orientation="vertical"
     tools:context=".activity.ResultsActivity">
 
-    <ImageView
-        android:id="@+id/chartImage"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:scaleType="centerInside" />
+        android:layout_height="wrap_content"
+        android:background="#8b0369"
+        android:orientation="horizontal"
+        android:padding="10dp">
 
+        <ImageView
+            android:id="@+id/profilePicture"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:paddingLeft="10dp"
+            android:text="Elena\n@VerietalsApp"
+            android:textColor="#FFF"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#8b0369"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:id="@+id/journal"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="JOURNAL"
+            android:textColor="#FFF"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/wines"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="WINES"
+            android:textColor="#FFF"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/stats"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="STATS"
+            android:textColor="#c8c8c8"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/statsPage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFF"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="26dp"
+            android:text="Wines tasted"
+            android:textColor="#b8b8b8"
+            android:textSize="13sp" />
+
+        <ImageView
+            android:id="@+id/chartImage"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:scaleType="centerInside" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="20dp"
+            android:text="Favorite types"
+            android:textColor="#b8b8b8"
+            android:textSize="13sp" />
+
+        <ImageView
+            android:id="@+id/chartImage3"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:scaleType="centerInside" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="26dp"
+            android:paddingTop="20dp"
+            android:text="Your top varietals (weighted percentage)"
+            android:textColor="#b8b8b8"
+            android:textSize="13sp" />
+
+
+        <ImageView
+            android:id="@+id/barChartImage"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="20dp"
+            android:scaleType="centerInside" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/history"
-        android:padding="20dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:padding="20dp" />
+
+
+    <LinearLayout
+        android:id="@+id/journalContent"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="#FFF"
+
+        android:orientation="vertical"
+        >
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp" >
+
+            <ImageView
+                android:id="@+id/vineyard_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/sample_jamiesonranchvineyards" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/black_top_gradient" />
+
+            <ImageView
+                android:id="@+id/backButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|top"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_back" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="14dp"
+            android:paddingRight="14dp"
+            android:paddingTop="14dp" >
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:paddingBottom="5dp"
+                android:text="Jamieson Ranch Vineyards"
+                android:textColor="#000"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:text="1 Kirkland Ranch RD, Napa CA 94558"
+                android:textColor="#b8b8b8"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        </LinearLayout>
 
 </LinearLayout>

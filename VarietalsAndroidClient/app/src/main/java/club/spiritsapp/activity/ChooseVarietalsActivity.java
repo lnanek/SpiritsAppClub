@@ -8,8 +8,12 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.StateSet;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -47,15 +51,29 @@ public class ChooseVarietalsActivity extends TintedStatusBarActivity {
 
 	private ViewGroup typesContainer;
 
-	// Instantiate the RequestQueue.
-	RequestQueue queue;
+    private StateListDrawable getStateListDrawable(final int imageResourceId) {
+
+        final Drawable imageDrawable = getResources().getDrawable(imageResourceId);
+
+        final Drawable selectedDrawable = getResources().getDrawable(R.drawable.ic_wine_selected);
+
+        final Drawable overlaidSelectedDrawable = getLayerListDrawable(imageDrawable, selectedDrawable);
+
+        StateListDrawable stateListDrawable= new StateListDrawable();
+        stateListDrawable.addState(new int[]{android.R.attr.state_checked}, overlaidSelectedDrawable);
+        stateListDrawable.addState(StateSet.WILD_CARD, imageDrawable);
+
+        return stateListDrawable;
+    }
+
+    private Drawable getLayerListDrawable(final Drawable one, final Drawable two) {
+        return new LayerDrawable(new Drawable[] {one, two});
+    }
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		queue = Volley.newRequestQueue(this);
-		
 		setContentView(R.layout.activity_choose);
 
         getActionBar().setLogo(R.drawable.transparent);
@@ -120,7 +138,7 @@ public class ChooseVarietalsActivity extends TintedStatusBarActivity {
 					}
 				});
 		// Add the request to the RequestQueue.
-		queue.add(typesRequest);
+        NetworkConstants.add(this, typesRequest);
 
 	}
 
@@ -166,6 +184,57 @@ public class ChooseVarietalsActivity extends TintedStatusBarActivity {
 
             checkbox.setChecked(currentTypes.contains(varietal.id));
 
+            if (varietal.id.replaceAll(" ", "").equalsIgnoreCase("cabernet")) {
+                checkbox.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                        getStateListDrawable(R.drawable.ic_cabernet), null, null, null);
+            } else if (varietal.id.replaceAll(" ", "").equalsIgnoreCase("cabernetsauvignon")) {
+                checkbox.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                        getStateListDrawable(R.drawable.ic_cabernet), null, null, null);
+            }  else if (varietal.id.replaceAll(" ", "").equalsIgnoreCase("chardonnay")) {
+                checkbox.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                        getStateListDrawable(R.drawable.ic_chardonnay), null, null, null);
+            }  else if (varietal.id.replaceAll(" ", "").equalsIgnoreCase("dessertwine")) {
+                checkbox.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                        getStateListDrawable(R.drawable.ic_dessert_wine), null, null, null);
+            } else if (varietal.id.replaceAll(" ", "").startsWith("Gew")) {
+                checkbox.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                        getStateListDrawable(R.drawable.ic_gewurztraminer), null, null, null);
+            } else if (varietal.id.replaceAll(" ", "").equalsIgnoreCase("merlot")) {
+                checkbox.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                        getStateListDrawable(R.drawable.ic_merlot), null, null, null);
+            } else if (varietal.id.replaceAll(" ", "").equalsIgnoreCase("petitesirah")) {
+                checkbox.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                        getStateListDrawable(R.drawable.ic_petitesirah), null, null, null);
+            } else if (varietal.id.replaceAll(" ", "").startsWith("PinotGrigio")) {
+                checkbox.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                        getStateListDrawable(R.drawable.ic_pinotgrigio), null, null, null);
+            } else if (varietal.id.replaceAll(" ", "").equalsIgnoreCase("pinotnoir")) {
+                checkbox.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                        getStateListDrawable(R.drawable.ic_pinotnoir), null, null, null);
+            } else if (varietal.id.replaceAll(" ", "").equalsIgnoreCase("redwine")) {
+                checkbox.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                        getStateListDrawable(R.drawable.ic_red_wine), null, null, null);
+            } else if (varietal.id.replaceAll(" ", "").equalsIgnoreCase("riesling")) {
+                checkbox.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                        getStateListDrawable(R.drawable.ic_reisling), null, null, null);
+            } else if (varietal.id.replaceAll(" ", "").equalsIgnoreCase("sparkingwine")) {
+                checkbox.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                        getStateListDrawable(R.drawable.ic_sparking_wine), null, null, null);
+            } else if (varietal.id.replaceAll(" ", "").startsWith("Syrah")) {
+                checkbox.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                        getStateListDrawable(R.drawable.ic_syrah), null, null, null);
+            } else if (varietal.id.replaceAll(" ", "").equalsIgnoreCase("tempranillo")) {
+                checkbox.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                        getStateListDrawable(R.drawable.ic_tempranillo), null, null, null);
+            } else if (varietal.id.replaceAll(" ", "").equalsIgnoreCase("viognier")) {
+                checkbox.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                        getStateListDrawable(R.drawable.ic_viognier), null, null, null);
+            } else if (varietal.id.replaceAll(" ", "").equalsIgnoreCase("whitewine")) {
+                checkbox.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                        getStateListDrawable(R.drawable.ic_white_wine), null, null, null);
+            } else {
+                continue;
+            }
 
             checkbox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 				@Override

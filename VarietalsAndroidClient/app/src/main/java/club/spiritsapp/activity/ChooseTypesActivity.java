@@ -8,8 +8,13 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.graphics.Outline;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.StateSet;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -50,14 +55,9 @@ public class ChooseTypesActivity extends TintedStatusBarActivity {
 
     private ViewGroup typesContainer;
 
-    // Instantiate the RequestQueue.
-    RequestQueue queue;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        queue = Volley.newRequestQueue(this);
 
         setContentView(R.layout.activity_choose);
 
@@ -95,6 +95,25 @@ public class ChooseTypesActivity extends TintedStatusBarActivity {
 
     }
 
+    private StateListDrawable getStateListDrawable(final int imageResourceId) {
+
+        final Drawable imageDrawable = getResources().getDrawable(imageResourceId);
+
+        final Drawable selectedDrawable = getResources().getDrawable(R.drawable.ic_wine_selected);
+
+        final Drawable overlaidSelectedDrawable = getLayerListDrawable(imageDrawable, selectedDrawable);
+
+        StateListDrawable stateListDrawable= new StateListDrawable();
+        stateListDrawable.addState(new int[]{android.R.attr.state_checked}, overlaidSelectedDrawable);
+        stateListDrawable.addState(StateSet.WILD_CARD, imageDrawable);
+
+        return stateListDrawable;
+    }
+
+    private Drawable getLayerListDrawable(final Drawable one, final Drawable two) {
+        return new LayerDrawable(new Drawable[] {one, two});
+    }
+
     private void requestTypes() {
 
         final ProgressDialog progress = new ProgressDialog(this);
@@ -120,7 +139,7 @@ public class ChooseTypesActivity extends TintedStatusBarActivity {
             }
         });
         // Add the request to the RequestQueue.
-        queue.add(typesRequest);
+        NetworkConstants.add(this, typesRequest);
 
     }
 
@@ -160,6 +179,17 @@ public class ChooseTypesActivity extends TintedStatusBarActivity {
             checkbox.setText(type.name);
 
             checkbox.setChecked(currentTypes.contains(type.id));
+
+            if (type.id.equals("White")) {
+                checkbox.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                        getStateListDrawable(R.drawable.ic_white_wine), null, null, null);
+            } else if (type.id.equals("Red")) {
+                checkbox.setCompoundDrawablesWithIntrinsicBounds( R.drawable.ic_red_wine_checkbox, 0, 0, 0);
+            } else if (type.id.equals("Sparkling")) {
+                checkbox.setCompoundDrawablesWithIntrinsicBounds( R.drawable.ic_sparkling_wine_checkbox, 0, 0, 0);
+            } else if (type.id.equals("Dessert")) {
+                checkbox.setCompoundDrawablesWithIntrinsicBounds( R.drawable.ic_dessert_wine_checkbox, 0, 0, 0);
+            }
 
 
             checkbox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
