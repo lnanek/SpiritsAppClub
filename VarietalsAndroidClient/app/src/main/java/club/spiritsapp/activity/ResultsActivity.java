@@ -31,8 +31,11 @@ import java.util.Map;
 import club.spiritsapp.R;
 import club.spiritsapp.R.id;
 import club.spiritsapp.R.layout;
+import club.spiritsapp.VarietalsApp;
 import club.spiritsapp.model.Rating;
+import club.spiritsapp.model.SampleImages;
 import club.spiritsapp.model.TastingSession;
+import club.spiritsapp.model.Vineyard;
 import club.spiritsapp.model.WineImages;
 
 public class ResultsActivity extends Activity {
@@ -65,6 +68,31 @@ public class ResultsActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(layout.activity_results);
+
+        final TextView name = (TextView) findViewById(R.id.name);
+        final TextView address = (TextView) findViewById(R.id.address);
+        final ImageView vineyardImage = (ImageView) findViewById(R.id.vineyard_image);
+
+        final Vineyard vineyard = VarietalsApp.instance.prefs.getNextVineyard();
+        if ( null != vineyard ) {
+
+            name.setText(vineyard.name);
+            //address.setText(null != vineyard.address ? vineyard.address.toString() : "");
+
+
+            if ( null == vineyard.photos || vineyard.photos.isEmpty() || null == vineyard.photos.get(0).url  ) {
+                vineyardImage.setImageResource(SampleImages.getNextSampleResourceId());
+            } else {
+                Picasso
+                        .with(ResultsActivity.this)
+                        .load(vineyard.photos.get(0).url)
+                        .fit().centerCrop()
+                        .noFade()
+                        .placeholder(SampleImages.getNextSampleResourceId())
+                        .into(vineyardImage);
+            }
+
+        }
 
         historyContainer = (ViewGroup) findViewById(R.id.historyContainer);
 

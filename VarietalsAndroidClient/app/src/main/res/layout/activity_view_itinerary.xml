@@ -69,7 +69,7 @@
                 android:textSize="13sp" />
 
             <Button
-                android:id="@+id/bookCarButton"
+                android:id="@+id/checkFlightsButton"
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -77,7 +77,7 @@
                 android:background="@drawable/btn_gold"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
-                android:text="BOOK CAR"
+                android:text="CHECK FLIGHTS"
                 android:textColor="#c7bc6c"
                 android:textSize="13sp" />
         </LinearLayout>
@@ -207,10 +207,6 @@
             android:text="JRV Reserve Tasting"
             android:textColor="#c8c8c8"
             android:textSize="13sp" />
-
-<!-- TODO numbers in front of each -->
-
-
 
         <LinearLayout
             android:layout_width="match_parent"

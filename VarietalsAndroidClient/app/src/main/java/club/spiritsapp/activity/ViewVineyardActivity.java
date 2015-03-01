@@ -20,6 +20,7 @@ import com.squareup.picasso.Picasso;
 import java.util.Arrays;
 
 import club.spiritsapp.R;
+import club.spiritsapp.VarietalsApp;
 import club.spiritsapp.model.SampleImages;
 import club.spiritsapp.model.SampleWineData;
 import club.spiritsapp.model.Vineyard;
@@ -163,6 +164,8 @@ public class ViewVineyardActivity extends TintedStatusBarActivity {
 
                 final String vineyardJson = new Gson().toJson(vineyard);
                 intent.putExtra(ViewItineraryActivity.VINEYARD_EXTRA, vineyardJson);
+
+                VarietalsApp.instance.prefs.setNextVineyard(vineyard);
 
                 startActivity(intent);
             }

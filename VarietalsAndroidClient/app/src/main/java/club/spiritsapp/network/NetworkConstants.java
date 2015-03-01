@@ -17,6 +17,8 @@ public class NetworkConstants {
     // Currently broken Modulus.io server
     public static final String SERVER = "http://api.varietals.club/";
 
+    public static final String FLIGHT_LOOKUP = "flight/lookup";
+
     //public static final String SERVER = "http://api-varietals.cfapps.io/";
 
     public static final RequestQueue getQueue(final Context context) {

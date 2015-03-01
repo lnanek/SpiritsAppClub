@@ -28,6 +28,7 @@ import club.spiritsapp.SendCarScheduleChange;
 import club.spiritsapp.datasync.WearableAppStarter;
 import club.spiritsapp.model.SampleImages;
 import club.spiritsapp.model.Vineyard;
+import club.spiritsapp.network.NetworkConstants;
 
 public class ViewItineraryActivity extends TintedStatusBarActivity {
 
@@ -78,11 +79,12 @@ public class ViewItineraryActivity extends TintedStatusBarActivity {
         });
 
 
-        findViewById(R.id.bookCarButton).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.checkFlightsButton).setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                final Intent intent = new Intent(ViewItineraryActivity.this, ChooseHotelActivity.class);
+                final Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(NetworkConstants.SERVER + NetworkConstants.FLIGHT_LOOKUP));
                 startActivity(intent);
                 finish();
             }
