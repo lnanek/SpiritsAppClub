@@ -24,6 +24,7 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.shamanland.fab.FloatingActionButton;
 
 import club.spiritsapp.R;
+import club.spiritsapp.SendCarScheduleChange;
 import club.spiritsapp.datasync.WearableAppStarter;
 import club.spiritsapp.model.SampleImages;
 import club.spiritsapp.model.Vineyard;
@@ -132,6 +133,16 @@ public class ViewItineraryActivity extends TintedStatusBarActivity {
                         //dialog.dismiss();
 
                         new WearableAppStarter().connectAndSend(ViewItineraryActivity.this, vineyard);
+
+                        vineyardImage.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                if (android.os.Build.VERSION.SDK_INT >= 21) {
+                                    SendCarScheduleChange.send(ViewItineraryActivity.this);
+                                }
+                            }
+                        }, 10 * 1000);
 
                     }
                 });

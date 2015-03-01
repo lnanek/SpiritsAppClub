@@ -8,6 +8,8 @@
 
     <string name="begin_tasting"><![CDATA[<b><font color=#c7bc6c>BEGIN TASTING</b>]]></string>
 
+    <string name="notification_reply">Change Schedule</string>
+
     <string name="example_dialog">
         Visitors to Reata at Jamieson Ranch are treated to a hospitality experience like no other in the Napa Valley.\n\n
         We hope you enjoy your stay.

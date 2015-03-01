@@ -85,6 +85,18 @@
             </intent-filter>
         </service>
 
+        <receiver android:name=".MyMessageReadReceiver">
+            <intent-filter>
+                <action android:name="club.spiritsapp.ACTION_MESSAGE_HEARD"/>
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name=".MyMessageReplyReceiver">
+            <intent-filter>
+                <action android:name="club.spiritsapp.ACTION_MESSAGE_REPLY"/>
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

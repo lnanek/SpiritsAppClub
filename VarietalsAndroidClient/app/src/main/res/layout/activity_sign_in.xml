@@ -33,7 +33,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:padding="10dp"
-            android:text="Sip Snap Share"
+            android:text="Your Wine Tasting Companion"
             android:textSize="13sp"
             android:textColor="#FFF" />
 
