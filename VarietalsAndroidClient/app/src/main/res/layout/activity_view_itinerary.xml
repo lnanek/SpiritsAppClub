@@ -7,16 +7,21 @@
     android:fitsSystemWindows="true"
     tools:context=".activity.ViewItineraryActivity">
 
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
+            android:paddingBottom="5dp"
             android:paddingLeft="20dp"
             android:paddingTop="10dp"
             android:text="Your Upcoming Itinerary"
@@ -28,10 +33,9 @@
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
             android:paddingLeft="20dp"
-            android:paddingTop="10dp"
             android:text="MARCH 15 - NAPA VALLEY"
             android:textColor="#000000"
-            android:textSize="13sp" />
+            android:textSize="16sp" />
 
 
         <ImageView
@@ -81,6 +85,25 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:text="9:45 AM"
+            android:textColor="#c7bc6c"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:text="Drive toward 1 Kirkland Ranch RD"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:paddingBottom="10dp"
             android:paddingLeft="20dp"
             android:paddingTop="10dp"
@@ -88,14 +111,283 @@
             android:textColor="#c7bc6c"
             android:textSize="13sp" />
 
-        <ImageView
-            android:id="@+id/vineyard_image"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/sample_jamiesonranchvineyards" />
+            android:layout_height="150dp" >
+
+            <ImageView
+                android:id="@+id/vineyard_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/im_landing_background" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|bottom"
+                android:layout_marginLeft="26dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_arrow" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="14dp"
+            android:paddingRight="14dp"
+            android:paddingTop="14dp"
+            tools:context=".VineyardsListActivity" >
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:paddingBottom="5dp"
+                android:text="Jamieson Ranch Vineyards"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:text="1 Kirkland Ranch RD, Napa CA 94558"
+                android:textColor="#b8b8b8"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingRight="48dp"
+            android:paddingTop="14dp">
+
+            <Button
+                android:id="@+id/sendAMessageButton"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/btn_gold"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="SEND A MESSAGE"
+                android:textColor="#c7bc6c"
+                android:textSize="13sp" />
+
+            <Button
+                android:id="@+id/callButton"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_gold"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="CALL"
+                android:textColor="#c7bc6c"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:text="JRV Reserve Tasting"
+            android:textColor="#c8c8c8"
+            android:textSize="13sp" />
+
+<!-- TODO numbers in front of each -->
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingRight="48dp"
+            android:paddingTop="14dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="10dp"
+                    android:text="1."
+                    android:textColor="#c8c8c8"
+                    android:textSize="13sp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="10dp"
+                    android:text="2."
+                    android:textColor="#c8c8c8"
+                    android:textSize="13sp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="10dp"
+                    android:text="3."
+                    android:textColor="#c8c8c8"
+                    android:textSize="13sp" />
+                </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="0px"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="10dp"
+                    android:text="2010 Jamieson Ranch Vineyards, Coombsville, Cabernet Sauvignon"
+                    android:textColor="#c8c8c8"
+                    android:textSize="13sp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="10dp"
+                    android:text="2010 Jamieson Ranch Vineyards, Coombsville, Cabernet Sauvignon"
+                    android:textColor="#c8c8c8"
+                    android:textSize="13sp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="10dp"
+                    android:text="2010 Jamieson Ranch Vineyards, Coombsville, Cabernet Sauvignon"
+                    android:textColor="#c8c8c8"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingBottom="20dp"
+            android:paddingRight="48dp"
+            android:paddingTop="14dp">
+
+            <Button
+                android:id="@+id/startEventButton"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/btn_gold"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="START EVENT"
+                android:textColor="#c7bc6c"
+                android:textSize="13sp" />
+
+            <Button
+                android:id="@+id/removeEventButton"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_gray"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="REMOVE EVENT"
+                android:textColor="#c8c8c8"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:text="Here's some upcoming events later in the day"
+            android:textColor="#c7bc6c"
+            android:textSize="13sp" />
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp" >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/im_landing_background" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|bottom"
+                android:layout_marginLeft="26dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_arrow" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="14dp"
+            android:paddingRight="14dp"
+            android:paddingTop="14dp"
+            tools:context=".VineyardsListActivity" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:paddingBottom="5dp"
+                android:text="Acacia Vineyard"
+                android:textColor="#000"
+                android:textSize="13sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:text="2750 Las Amigas Road, Napa CA 94559"
+                android:textColor="#b8b8b8"
+                android:textSize="13sp" />
+        </LinearLayout>
 
     </LinearLayout>
+
+    </ScrollView>
 
     <com.shamanland.fab.FloatingActionButton
         android:id="@+id/shareButton"

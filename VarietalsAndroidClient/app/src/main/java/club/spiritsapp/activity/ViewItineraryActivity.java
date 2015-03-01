@@ -2,14 +2,19 @@ package club.spiritsapp.activity;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Outline;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewOutlineProvider;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -79,6 +84,54 @@ public class ViewItineraryActivity extends TintedStatusBarActivity {
                 finish();
             }
         });
+
+
+        findViewById(R.id.callButton).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                String phone = "+7079448355";
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null));
+                startActivity(intent);
+            }
+        });
+
+
+        findViewById(R.id.sendAMessageButton).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                        "mailto", "members@tuskestates.com", null));
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "I would like to attend!");
+                startActivity(Intent.createChooser(emailIntent, "Send email..."));
+            }
+        });
+
+
+        findViewById(R.id.startEventButton).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                final Dialog dialog = new Dialog(ViewItineraryActivity.this);
+                dialog.getWindow().setBackgroundDrawable(null);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.dialog_begin_tasting);
+
+                final View view = dialog.findViewById(R.id.container);
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+            }
+        });
+
+
 
         FloatingActionButton shareButton = (FloatingActionButton) findViewById(R.id.shareButton);
 
