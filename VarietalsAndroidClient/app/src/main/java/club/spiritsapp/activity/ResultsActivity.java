@@ -36,7 +36,7 @@ public class ResultsActivity extends Activity {
     private static final String TAG = ResultsActivity.class.getSimpleName();
 
     private String url =
-            "https://chart.googleapis.com/chart?cht=p&chs=200x90&chd=t:10,10,30,50&chdl=Red|White|Dessert|Sparkling&chco=87042f|e8e8be|8b0369|d7d4d4";
+            "https://chart.googleapis.com/chart?cht=p&chs=500x250&chd=t:10,10,30,50&chdl=Red|White|Dessert|Sparkling&chco=87042f|e8e8be|8b0369|d7d4d4";
 
     private TastingSession tasting;
 
@@ -72,8 +72,9 @@ public class ResultsActivity extends Activity {
 
                 history.append("Rated: " + rating.wine.name + " " + rating.score + "\n");
                 if ( null != rating.comment ) {
-                    history.append("Commented: " + rating.comment + "\n\n");
+                    history.append("Commented: " + rating.comment + "\n");
                 }
+                history.append("\n");
 
                 final Integer currentScore = scoreByTypeId.get(rating.wine.varietalType.id.intern());
                 if (null == currentScore) {
@@ -92,13 +93,14 @@ public class ResultsActivity extends Activity {
             final String joinedSumes = concatStringsWSep(values, ",");
 
 
-            url =  "https://chart.googleapis.com/chart?cht=p&chs=200x90&chd=t:"
+            url =  "https://chart.googleapis.com/chart?cht=p&chs=500x250&chd=t:"
                     //+ "10,10,30,50"
                     + joinedSumes
                     + "&chdl="
                     //+ "Red|White|Dessert|Sparkling"
                     + joinedLabels
                     + "&chco=87042f|e8e8be|8b0369|d7d4d4";
+
             Log.i(TAG, "Made chart URL: " + url);
 
         }

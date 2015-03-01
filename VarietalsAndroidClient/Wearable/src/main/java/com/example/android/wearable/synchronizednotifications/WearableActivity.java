@@ -58,6 +58,26 @@ public class WearableActivity extends Activity {
     private ArrayList<Wine> wines = new ArrayList<Wine>();
     {
         {
+            final Wine wine0 = new Wine();
+            wine0.name = "2005 CORDORNIU NAPA GRAND RESERVE, SPARKLING";
+            wine0.varietalType = new VarietalType();
+            wine0.varietalType.id = "SPARKLING";
+            wine0.varietal = new Varietal();
+            wine0.varietal.id = "CHARDONNAY";
+            wines.add(wine0);
+        }
+
+        {
+            final Wine wine3 = new Wine();
+            wine3.name = "1981 CARTLIDGE & BROWNE WINERY, CHARDONNAY";
+            wine3.varietalType = new VarietalType();
+            wine3.varietalType.id = "WHITE";
+            wine3.varietal = new Varietal();
+            wine3.varietal.id = "CHARDONNAY";
+            wines.add(wine3);
+        }
+
+        {
             final Wine wine1 = new Wine();
             wine1.name = "2010 JAMIESON RANCH VINEYARDS, COOMBSVILLE, CABERNET SAUVIGNON";
             wine1.varietalType = new VarietalType();
@@ -75,16 +95,6 @@ public class WearableActivity extends Activity {
             wine2.varietal = new Varietal();
             wine2.varietal.id = "PINOT NOIR";
             wines.add(wine2);
-        }
-
-        {
-            final Wine wine3 = new Wine();
-            wine3.name = "1981 CARTLIDGE & BROWNE WINERY, CHARDONNAY";
-            wine3.varietalType = new VarietalType();
-            wine3.varietalType.id = "WHITE";
-            wine3.varietal = new Varietal();
-            wine3.varietal.id = "CHARDONNAY";
-            wines.add(wine3);
         }
 
         {
@@ -132,6 +142,8 @@ public class WearableActivity extends Activity {
         session.ratings.add(rating);
 
         currentWineIndex++;
+        currentComment = null;
+        currentRating = 50;
         if ( currentWineIndex == wines.size() ) {
             finish();
 

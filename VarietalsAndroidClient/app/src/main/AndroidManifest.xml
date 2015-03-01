@@ -12,7 +12,7 @@
     <application
         android:name=".VarietalsApp"
         android:allowBackup="true"
-        android:icon="@drawable/ic_logo"
+        android:icon="@mipmap/ic_launch"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:theme="@android:style/Theme.NoTitleBar">
@@ -26,7 +26,10 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar">
 
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
 
         </activity>
@@ -50,32 +53,25 @@
             android:name=".activity.ChooseHotelActivity"
             android:label="Book Hotels"
             android:screenOrientation="portrait"
-            android:theme="@style/CustomActionBarTheme">
-        </activity>
+            android:theme="@style/CustomActionBarTheme"></activity>
 
         <activity
             android:name=".activity.ViewVineyardActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar">
-        </activity>
+            android:theme="@android:style/Theme.NoTitleBar"></activity>
 
         <activity
             android:name=".activity.ResultsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/CustomActionBarTheme">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
 
         <activity
             android:name=".activity.ViewItineraryActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/CustomActionBarTheme">
-        </activity>
+            android:theme="@style/CustomActionBarTheme"></activity>
 
         <meta-data
             android:name="com.google.android.gms.version"
