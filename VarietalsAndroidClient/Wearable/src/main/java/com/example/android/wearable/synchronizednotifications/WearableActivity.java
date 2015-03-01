@@ -255,7 +255,9 @@ public class WearableActivity extends Activity {
         unlockScreen();
 
         final PowerManager pm = (PowerManager) getSystemService(Activity.POWER_SERVICE);
-        PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "tag");
+        if (null == wl) {
+            wl = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "tag");
+        }
         if (!wl.isHeld()) {
             wl.acquire();
         }
@@ -272,7 +274,7 @@ public class WearableActivity extends Activity {
     protected void onPause() {
         super.onPause();
 
-        if (wl.isHeld()) {
+        if (null != wl && wl.isHeld()) {
             wl.release();
         }
     }
