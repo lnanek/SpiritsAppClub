@@ -24,6 +24,7 @@ import club.spiritsapp.R;
 import club.spiritsapp.VarietalsApp;
 import club.spiritsapp.model.Varietal;
 import club.spiritsapp.model.VarietalsResponse;
+import club.spiritsapp.network.NetworkConstants;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -38,10 +39,8 @@ public class ChooseVarietalsActivity extends TintedStatusBarActivity {
 
 	private final Gson gson = new Gson();
 
-	private static final String URL = "http://varietals-server.cfapps.io/lookup/varietals";
-	/*
-	 * /appelations /countries /states /regions /types /varietals
-	 */
+    private static final String URL = NetworkConstants.SERVER +
+            "lookup/varietals";
 
 	private ViewGroup typesContainer;
 

@@ -32,6 +32,7 @@ import java.util.List;
 import club.spiritsapp.R;
 import club.spiritsapp.VarietalsApp;
 import club.spiritsapp.model.SampleImages;
+import club.spiritsapp.network.NetworkConstants;
 import club.spiritsapp.network.VineyardsRequest;
 import club.spiritsapp.model.Vineyard;
 import club.spiritsapp.model.VineyardsRequestBody;
@@ -42,7 +43,8 @@ public class VineyardsListActivity extends TintedStatusBarActivity {
 
     private final Gson gson = new Gson();
 
-    private static final String URL = "http://varietals-server.cfapps.io/user/123/suggestions";
+    private static final String URL = NetworkConstants.SERVER +
+            "user/123/suggestions";
 
     private ViewGroup vineyardsContainer;
 

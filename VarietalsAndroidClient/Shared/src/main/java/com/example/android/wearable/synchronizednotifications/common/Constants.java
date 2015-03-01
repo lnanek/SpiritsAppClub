@@ -22,25 +22,12 @@ public final class Constants {
 
     private Constants() {};
 
-    public static final int WATCH_ONLY_ID = 2;
-    public static final int PHONE_ONLY_ID = 3;
-    public static final int BOTH_ID = 4;
-
-    public static final String BOTH_PATH = "/both";
-    public static final String WATCH_ONLY_PATH = "/watch-only";
-    public static final String KEY_NOTIFICATION_ID = "notification-id";
-    public static final String KEY_TITLE = "title";
-    public static final String KEY_CONTENT = "content";
-
-    public static final String ACTION_DISMISS
-            = "com.example.android.wearable.synchronizednotifications.DISMISS";
+    public static final String START_RATINGS_PATH = "/notification";
+    public static final String START_RATINGS_TIMESTAMP = "timestamp";
+    public static final String START_RATINGS_TITLE = "title";
+    public static final String START_RATINGS_CONTENT = "content";
 
 
-    public static final String NOTIFICATION_PATH = "/notification";
-    public static final String NOTIFICATION_TIMESTAMP = "timestamp";
-    public static final String NOTIFICATION_TITLE = "title";
-    public static final String NOTIFICATION_CONTENT = "content";
-
-    //public static final String ACTION_DISMISS = "de.peterfriese.notificationwithopenactivityonwearableaction.DISMISS";
+    public static final String START_RESULTS_PATH = "/START_RESULTS_PATH";
 
 }

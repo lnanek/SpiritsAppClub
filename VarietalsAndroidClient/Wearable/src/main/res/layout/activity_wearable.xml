@@ -33,6 +33,24 @@
 
     </LinearLayout>
 
+
+    <ImageView
+        android:id="@+id/recordVoiceNoteButton"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:padding="5dp"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_btn_speak_now" />
+
+    <TextView
+        android:id="@+id/speechResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:textColor="#585858"
+        android:textSize="12sp" />
+
     <LinearLayout
         android:id="@+id/wineRating"
         android:layout_width="match_parent"

@@ -16,29 +16,13 @@
 
 package com.example.android.wearable.synchronizednotifications;
 
-import static com.google.android.gms.wearable.PutDataRequest.WEAR_URI_SCHEME;
-
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
 import android.util.Log;
 
 import com.example.android.wearable.synchronizednotifications.common.Constants;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.wearable.DataApi;
 import com.google.android.gms.wearable.DataEvent;
 import com.google.android.gms.wearable.DataEventBuffer;
-import com.google.android.gms.wearable.DataMap;
-import com.google.android.gms.wearable.DataMapItem;
-import com.google.android.gms.wearable.PutDataMapRequest;
-import com.google.android.gms.wearable.Wearable;
 import com.google.android.gms.wearable.WearableListenerService;
-import club.spiritsapp.R;
 
 /**
  * A {@link com.google.android.gms.wearable.WearableListenerService} that will be invoked when a
@@ -68,11 +52,11 @@ public class NotificationUpdateService extends WearableListenerService
             Log.i(TAG, "onDataChanged dataEvent = " + dataEvent);
 
             if (dataEvent.getType() == DataEvent.TYPE_CHANGED) {
-                if (Constants.NOTIFICATION_PATH.equals(dataEvent.getDataItem().getUri().getPath())) {
+                if (Constants.START_RATINGS_PATH.equals(dataEvent.getDataItem().getUri().getPath())) {
 
                     //DataMapItem dataMapItem = DataMapItem.fromDataItem(dataEvent.getDataItem());
-                    //String title = dataMapItem.getDataMap().getString(Constants.NOTIFICATION_TITLE);
-                    //String content = dataMapItem.getDataMap().getString(Constants.NOTIFICATION_CONTENT);
+                    //String title = dataMapItem.getDataMap().getString(Constants.START_RATINGS_TITLE);
+                    //String content = dataMapItem.getDataMap().getString(Constants.START_RATINGS_CONTENT);
 
                     final Intent intent = new Intent(getApplicationContext(), WearableActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

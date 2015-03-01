@@ -16,15 +16,20 @@
 package com.example.android.wearable.synchronizednotifications;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.List;
 
 import club.spiritsapp.R;
 
@@ -38,6 +43,10 @@ public class WearableActivity extends Activity {
 
     SeekBar seekBar;
 
+    View recordVoiceNoteButton;
+
+    TextView speechResult;
+
     private String[] wineDescriptions = new String[] {
             "2010 Jamieson Ranch Vineyards, Coombsville, Cabernet Sauvignon",
             "2001 Acacia Vineyards, Pinot Noir",
@@ -46,7 +55,24 @@ public class WearableActivity extends Activity {
 
     private int currentWineIndex = 0;
 
+    private boolean currentModeIsRating = true;
+
     private void nextPrompt() {
+        if ( currentModeIsRating ) {
+
+            Log.i(TAG, "nextPrompt switching from rating mode to voice prompt mode");
+
+            wineRating.setVisibility(View.GONE);
+            seekBar.setVisibility(View.GONE);
+            recordVoiceNoteButton.setVisibility(View.VISIBLE);
+            speechResult.setVisibility(View.VISIBLE);
+            speechResult.setText("");
+            currentModeIsRating = false;
+            return;
+        }
+
+
+        Log.i(TAG, "nextPrompt going to next wine");
         currentWineIndex++;
         if ( currentWineIndex == wineDescriptions.length ) {
             finish();
@@ -57,6 +83,14 @@ public class WearableActivity extends Activity {
 
             return;
         }
+
+
+        Log.i(TAG, "nextPrompt switching from voice mode to rating mode");
+        wineRating.setVisibility(View.VISIBLE);
+        seekBar.setVisibility(View.VISIBLE);
+        recordVoiceNoteButton.setVisibility(View.GONE);
+        speechResult.setVisibility(View.GONE);
+        currentModeIsRating = true;
 
         prompt.setText(wineDescriptions[currentWineIndex]);
         seekBar.setProgress(50);
@@ -69,6 +103,16 @@ public class WearableActivity extends Activity {
         Log.i(TAG, "Started with intent: " + getIntent());
 
         setContentView(R.layout.activity_wearable);
+
+        speechResult = (TextView) findViewById(R.id.speechResult);
+
+        recordVoiceNoteButton = findViewById(R.id.recordVoiceNoteButton);
+        recordVoiceNoteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                displaySpeechRecognizer();
+            }
+        });
 
         prompt = (TextView) findViewById(R.id.prompt);
         prompt.setText(wineDescriptions[0]);
@@ -161,5 +205,43 @@ public class WearableActivity extends Activity {
             }
         }
 
+    }
+
+    private static final int SPEECH_REQUEST_CODE = 0;
+
+    // Create an intent that can start the Speech Recognizer activity
+    private void displaySpeechRecognizer() {
+        Log.i(TAG, "displaySpeechRecognizer");
+
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+// Start the activity, the intent will be populated with the speech text
+        startActivityForResult(intent, SPEECH_REQUEST_CODE);
+    }
+
+    // This callback is invoked when the Speech Recognizer returns.
+// This is where you process the intent and extract the speech text from the intent.
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent data) {
+        Log.i(TAG, "onActivityResult");
+
+        if (requestCode == SPEECH_REQUEST_CODE && resultCode == RESULT_OK) {
+            List<String> results = data.getStringArrayListExtra(
+                    RecognizerIntent.EXTRA_RESULTS);
+            String spokenText = results.get(0);
+
+            Log.i(TAG, "onActivityResult spokenText = " + spokenText);
+
+            if ( null != spokenText ) {
+
+                speechResult.setText(spokenText);
+
+            }
+
+            // Do something with spokenText
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

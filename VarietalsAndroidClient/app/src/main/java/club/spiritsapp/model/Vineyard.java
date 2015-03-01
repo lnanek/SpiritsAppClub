@@ -24,7 +24,7 @@ public class Vineyard {
     public int dislikes;
 	public String description;
     public boolean visible;
-    public Social social;
+    //public Social social;
     public Address address;
     public List<String> types;
     public List<String> varietals;

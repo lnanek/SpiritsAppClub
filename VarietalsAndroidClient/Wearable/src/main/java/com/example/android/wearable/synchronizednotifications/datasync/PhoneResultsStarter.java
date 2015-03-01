@@ -1,4 +1,4 @@
-package club.spiritsapp.datasync;
+package com.example.android.wearable.synchronizednotifications.datasync;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -17,10 +17,10 @@ import java.util.Date;
 /**
  * Created by lnanek on 2/28/15.
  */
-public class WearableAppStarter {
+public class PhoneResultsStarter {
 
 
-    private static final String TAG = "WearableAppStarter";
+    private static final String TAG = PhoneResultsStarter.class.getSimpleName();
     private GoogleApiClient mGoogleApiClient;
 
     public void connectAndSend(Context context) {
@@ -63,14 +63,12 @@ public class WearableAppStarter {
 
     private void sendNotification() {
         if (mGoogleApiClient.isConnected()) {
-            PutDataMapRequest dataMapRequest = PutDataMapRequest.create(Constants.START_RATINGS_PATH);
+            PutDataMapRequest dataMapRequest = PutDataMapRequest.create(Constants.START_RESULTS_PATH);
             // Make sure the data item is unique. Usually, this will not be required, as the payload
             // (in this case the title and the content of the notification) will be different for almost all
             // situations. However, in this example, the text and the content are always the same, so we need
             // to disambiguate the data item by adding a field that contains teh current time in milliseconds.
             dataMapRequest.getDataMap().putDouble(Constants.START_RATINGS_TIMESTAMP, System.currentTimeMillis());
-            dataMapRequest.getDataMap().putString(Constants.START_RATINGS_TITLE, "This is the title");
-            dataMapRequest.getDataMap().putString(Constants.START_RATINGS_CONTENT, "This is a notification with some text.");
             PutDataRequest putDataRequest = dataMapRequest.asPutDataRequest();
             Wearable.DataApi.putDataItem(mGoogleApiClient, putDataRequest);
 
