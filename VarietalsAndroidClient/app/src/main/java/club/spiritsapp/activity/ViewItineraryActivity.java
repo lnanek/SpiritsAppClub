@@ -84,7 +84,7 @@ public class ViewItineraryActivity extends TintedStatusBarActivity {
             @Override
             public void onClick(View v) {
                 final Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(NetworkConstants.SERVER + NetworkConstants.FLIGHT_LOOKUP));
+                intent.setData(Uri.parse("http://api.varietals.club/flight/lookup?origin=PDX&destination=SFO&lengthofstay=3"));
                 startActivity(intent);
                 finish();
             }

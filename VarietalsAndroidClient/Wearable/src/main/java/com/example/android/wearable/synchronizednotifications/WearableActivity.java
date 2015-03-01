@@ -18,11 +18,14 @@ package com.example.android.wearable.synchronizednotifications;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -241,6 +244,37 @@ public class WearableActivity extends Activity {
                 nextPrompt();
             }
         });
+    }
+
+    private PowerManager.WakeLock wl;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        unlockScreen();
+
+        final PowerManager pm = (PowerManager) getSystemService(Activity.POWER_SERVICE);
+        PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "tag");
+        if (!wl.isHeld()) {
+            wl.acquire();
+        }
+    }
+
+    private void unlockScreen() {
+        Window window = this.getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+        window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+        window.addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if (wl.isHeld()) {
+            wl.release();
+        }
     }
 
     private void setWineRating(int progress) {
