@@ -24,9 +24,7 @@ public final class Constants {
 
     public static final String START_RATINGS_PATH = "/notification";
     public static final String START_RATINGS_TIMESTAMP = "timestamp";
-    public static final String START_RATINGS_TITLE = "title";
-    public static final String START_RATINGS_CONTENT = "content";
-
+    public static final String START_RATINGS_VINEYARD = "vineyard";
 
     public static final String START_RESULTS_PATH = "/START_RESULTS_PATH";
     public static final String START_RESULTS_TIMESTAMP = "timestamp";

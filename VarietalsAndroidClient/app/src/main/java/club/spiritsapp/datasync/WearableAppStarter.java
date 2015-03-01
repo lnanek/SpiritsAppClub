@@ -10,9 +10,12 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.wearable.PutDataMapRequest;
 import com.google.android.gms.wearable.PutDataRequest;
 import com.google.android.gms.wearable.Wearable;
+import com.google.gson.Gson;
 
 import java.text.DateFormat;
 import java.util.Date;
+
+import club.spiritsapp.model.Vineyard;
 
 /**
  * Created by lnanek on 2/28/15.
@@ -23,7 +26,7 @@ public class WearableAppStarter {
     private static final String TAG = "WearableAppStarter";
     private GoogleApiClient mGoogleApiClient;
 
-    public void connectAndSend(Context context) {
+    public void connectAndSend(Context context, final Vineyard vineyard) {
 
         mGoogleApiClient = new GoogleApiClient.Builder(context)
                 .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
@@ -32,7 +35,7 @@ public class WearableAppStarter {
                         Log.d(TAG, "onConnected: " + connectionHint);
 
 
-                        sendNotification();
+                        sendNotification(vineyard);
                     }
                     @Override
                     public void onConnectionSuspended(int cause) {
@@ -61,7 +64,7 @@ public class WearableAppStarter {
         return dateFormat.format(new Date());
     }
 
-    private void sendNotification() {
+    private void sendNotification(Vineyard vineyard) {
         if (mGoogleApiClient.isConnected()) {
             PutDataMapRequest dataMapRequest = PutDataMapRequest.create(Constants.START_RATINGS_PATH);
             // Make sure the data item is unique. Usually, this will not be required, as the payload
@@ -69,8 +72,13 @@ public class WearableAppStarter {
             // situations. However, in this example, the text and the content are always the same, so we need
             // to disambiguate the data item by adding a field that contains teh current time in milliseconds.
             dataMapRequest.getDataMap().putDouble(Constants.START_RATINGS_TIMESTAMP, System.currentTimeMillis());
-            dataMapRequest.getDataMap().putString(Constants.START_RATINGS_TITLE, "This is the title");
-            dataMapRequest.getDataMap().putString(Constants.START_RATINGS_CONTENT, "This is a notification with some text.");
+
+            final String vineyardJson = new Gson().toJson(vineyard);
+
+            dataMapRequest.getDataMap().putString(Constants.START_RATINGS_VINEYARD, vineyardJson);
+            Log.i(TAG, "sent JSON: " + vineyardJson);
+
+
             PutDataRequest putDataRequest = dataMapRequest.asPutDataRequest();
             Wearable.DataApi.putDataItem(mGoogleApiClient, putDataRequest);
 

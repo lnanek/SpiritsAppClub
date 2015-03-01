@@ -22,6 +22,7 @@ import android.util.Log;
 import com.example.android.wearable.synchronizednotifications.common.Constants;
 import com.google.android.gms.wearable.DataEvent;
 import com.google.android.gms.wearable.DataEventBuffer;
+import com.google.android.gms.wearable.DataMapItem;
 import com.google.android.gms.wearable.WearableListenerService;
 
 /**
@@ -52,19 +53,30 @@ public class NotificationUpdateService extends WearableListenerService
             Log.i(TAG, "onDataChanged dataEvent = " + dataEvent);
 
             if (dataEvent.getType() == DataEvent.TYPE_CHANGED) {
+                Log.i(TAG, "path: " + dataEvent.getDataItem().getUri().getPath());
+
                 if (Constants.START_RATINGS_PATH.equals(dataEvent.getDataItem().getUri().getPath())) {
 
-                    //DataMapItem dataMapItem = DataMapItem.fromDataItem(dataEvent.getDataItem());
+                    DataMapItem dataMapItem = DataMapItem.fromDataItem(dataEvent.getDataItem());
                     //String title = dataMapItem.getDataMap().getString(Constants.START_RATINGS_TITLE);
                     //String content = dataMapItem.getDataMap().getString(Constants.START_RATINGS_CONTENT);
 
+                    String json = dataMapItem.getDataMap().getString(Constants.START_RATINGS_VINEYARD);
+
+                    Log.i(TAG, "json from data map: " + json);
+
                     final Intent intent = new Intent(getApplicationContext(), WearableActivity.class);
+
+                    intent.putExtra(Constants.START_RATINGS_VINEYARD, json);
+
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
 
 
                     Log.i(TAG, "starting: " + intent);
 
+                } else {
+                    Log.i(TAG, "not start rating path");
                 }
             }
         }

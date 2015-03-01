@@ -33,7 +33,8 @@ public class Vineyard {
     public JsonObject location;
     public JsonArray ava;
     public List<Photo> photos;
-    public LinkedHashSet<Integer> samplePhotoResourceIds = new LinkedHashSet<>();
+
+    public List<Wine> wines;
 
 	@Override
 	public String toString() {

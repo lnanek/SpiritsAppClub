@@ -130,10 +130,6 @@ public class VineyardsListActivity extends TintedStatusBarActivity {
 
         for (final Vineyard vineyard : vineyards) {
 
-            vineyard.samplePhotoResourceIds.add(SampleImages.getNextSampleResourceId());
-            vineyard.samplePhotoResourceIds.addAll(Arrays.<Integer>asList(SampleImages.sampleImageResourceIds));
-
-
             final ViewGroup vineyardContainer = (ViewGroup) inflator.inflate(
                     R.layout.activity_vineyards_item, vineyardsContainer, false);
 
@@ -142,8 +138,8 @@ public class VineyardsListActivity extends TintedStatusBarActivity {
                 public void onClick(View v) {
                     final Intent intent = new Intent(VineyardsListActivity.this, ViewVineyardActivity.class);
 
-                    final String vineyardJson = new Gson().toJson(vineyard);
-                    intent.putExtra(ViewVineyardActivity.VINEYARD_EXTRA, vineyardJson);
+                    //final String vineyardJson = new Gson().toJson(vineyard);
+                    intent.putExtra(ViewVineyardActivity.VINEYARD_EXTRA, vineyard.id);
 
                     startActivity(intent);
                 }
@@ -157,16 +153,15 @@ public class VineyardsListActivity extends TintedStatusBarActivity {
 
             final ImageView vineyardImage = (ImageView) vineyardContainer.findViewById(R.id.vineyard_image);
 
-            final int sampleImageResourceId = vineyard.samplePhotoResourceIds.iterator().next();
             if ( null == vineyard.photos || vineyard.photos.isEmpty() || null == vineyard.photos.get(0).url  ) {
-                vineyardImage.setImageResource(sampleImageResourceId);
+                vineyardImage.setImageResource(SampleImages.getNextSampleResourceId());
             } else {
                 Picasso
                         .with(VineyardsListActivity.this)
                         .load(vineyard.photos.get(0).url)
                         .fit().centerCrop()
                         .noFade()
-                        .placeholder(sampleImageResourceId)
+                        .placeholder(SampleImages.getNextSampleResourceId())
                         .into(vineyardImage);
             }
 

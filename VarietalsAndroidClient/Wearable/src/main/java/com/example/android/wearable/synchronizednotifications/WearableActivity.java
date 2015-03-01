@@ -29,16 +29,20 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.android.wearable.synchronizednotifications.common.Constants;
 import com.example.android.wearable.synchronizednotifications.datasync.PhoneResultsStarter;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import club.spiritsapp.R;
 import club.spiritsapp.model.Rating;
+import club.spiritsapp.model.SampleWineData;
 import club.spiritsapp.model.TastingSession;
 import club.spiritsapp.model.Varietal;
 import club.spiritsapp.model.VarietalType;
+import club.spiritsapp.model.Vineyard;
 import club.spiritsapp.model.Wine;
 
 public class WearableActivity extends Activity {
@@ -55,58 +59,7 @@ public class WearableActivity extends Activity {
 
     TextView speechResult;
 
-    private ArrayList<Wine> wines = new ArrayList<Wine>();
-    {
-        {
-            final Wine wine0 = new Wine();
-            wine0.name = "2005 CORDORNIU NAPA GRAND RESERVE, SPARKLING";
-            wine0.varietalType = new VarietalType();
-            wine0.varietalType.id = "SPARKLING";
-            wine0.varietal = new Varietal();
-            wine0.varietal.id = "CHARDONNAY";
-            wines.add(wine0);
-        }
-
-        {
-            final Wine wine3 = new Wine();
-            wine3.name = "1981 CARTLIDGE & BROWNE WINERY, CHARDONNAY";
-            wine3.varietalType = new VarietalType();
-            wine3.varietalType.id = "WHITE";
-            wine3.varietal = new Varietal();
-            wine3.varietal.id = "CHARDONNAY";
-            wines.add(wine3);
-        }
-
-        {
-            final Wine wine1 = new Wine();
-            wine1.name = "2010 JAMIESON RANCH VINEYARDS, COOMBSVILLE, CABERNET SAUVIGNON";
-            wine1.varietalType = new VarietalType();
-            wine1.varietalType.id = "RED";
-            wine1.varietal = new Varietal();
-            wine1.varietal.id = "CABERNET SAUVIGNON";
-            wines.add(wine1);
-        }
-
-        {
-            final Wine wine2 = new Wine();
-            wine2.name = "2001 ARTESA VINEYARDS & WINERY, PINOT";
-            wine2.varietalType = new VarietalType();
-            wine2.varietalType.id = "RED";
-            wine2.varietal = new Varietal();
-            wine2.varietal.id = "PINOT NOIR";
-            wines.add(wine2);
-        }
-
-        {
-            final Wine wine4 = new Wine();
-            wine4.name = "2006 REYNOLDS FAMILY WINERY, NAUGHTY STICKY";
-            wine4.varietalType = new VarietalType();
-            wine4.varietalType.id = "DESSERT";
-            wine4.varietal = new Varietal();
-            wine4.varietal.id = "CHARDONNAY";
-            wines.add(wine4);
-        }
-    }
+    private List<Wine> wines = SampleWineData.wines;
 
     private int currentWineIndex = 0;
 
@@ -173,6 +126,47 @@ public class WearableActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         Log.i(TAG, "Started with intent: " + getIntent());
+
+
+        final Intent intent = getIntent();
+        if (null != intent) {
+            final Bundle extras = intent.getExtras();
+            if (null != extras) {
+                final String vineyardJson = extras.getString(Constants.START_RATINGS_VINEYARD);
+                if ( null != vineyardJson ) {
+                    final Vineyard vineyard = new Gson().fromJson(vineyardJson, Vineyard.class);
+
+                    if ( null != vineyard ) {
+
+                        if ( null != vineyard.wines && ! vineyard.wines.isEmpty() ) {
+
+                            wines = vineyard.wines;
+
+                              Log.i(TAG, "using live wines passed from server: " + wines);
+
+                        } else {
+
+                            Log.w(TAG, "no wines on parsed vineyard");
+
+                        }
+                    } else {
+
+                        Log.w(TAG, "null vineyard from parsing");
+                    }
+                } else {
+
+                    Log.w(TAG, "no vineyard JSON extra");
+                }
+
+
+            } else {
+
+                Log.w(TAG, "no extras");
+            }
+        } else {
+            Log.w(TAG, "no intent");
+        }
+
 
         setContentView(R.layout.activity_wearable);
 

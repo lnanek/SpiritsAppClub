@@ -1,13 +1,30 @@
 package club.spiritsapp.model;
 
 import com.google.gson.Gson;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class Wine {
 
-	public String id;
-	public String name;
-	public Varietal varietal;
-    public VarietalType varietalType;
+    public String name;
+
+    public int vintage;
+
+    public String varietal;
+
+    public String ava;
+
+    @SerializedName("type")
+    public String varietalType;
+
+    public List<Photo> photos;
+
+    public String description;
+
+    public String winery;
+
+    public String id;
 
 	public Wine() {
 	}

@@ -1,0 +1,95 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFF"
+    android:keepScreenOn="true"
+    android:orientation="horizontal"
+    tools:context=".activity.ResultsActivity">
+
+    <ImageView
+        android:id="@+id/winePicture"
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_white_wine" />
+
+    <LinearLayout
+        android:padding="5dp"
+        android:layout_width="0px"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+
+        >
+
+        <TextView
+            android:id="@+id/wineName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:paddingTop="5dp"
+            android:paddingLeft="10dp"
+            android:text="Great Ziffon's Sparkling White"
+            android:textColor="#000"
+            android:textSize="13sp" />
+
+        <LinearLayout
+            android:id="@+id/wineRating"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            >
+
+
+            <ImageView
+                android:id="@+id/glass1"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:src="@drawable/ic_full_glass" />
+
+            <ImageView
+                android:id="@+id/glass2"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:src="@drawable/ic_full_glass" />
+
+            <ImageView
+                android:id="@+id/glass3"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:src="@drawable/ic_half_glass" />
+
+            <ImageView
+                android:id="@+id/glass4"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:src="@drawable/ic_empty_glass" />
+
+            <ImageView
+                android:id="@+id/glass5"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:src="@drawable/ic_empty_glass" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -130,24 +130,34 @@
 
     </LinearLayout>
 
-    <TextView
+    <ScrollView
         android:id="@+id/history"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="20dp" />
+        android:layout_height="0px"
+        android:layout_weight="1"
+        android:padding="20dp">
 
+        <LinearLayout
+            android:id="@+id/historyContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+        </LinearLayout>
+
+    </ScrollView>
 
     <LinearLayout
         android:id="@+id/journalContent"
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp"
         android:background="#FFF"
 
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -158,22 +168,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/sample_jamiesonranchvineyards" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/black_top_gradient" />
+                android:src="@drawable/im_landing_background" />
 
             <ImageView
-                android:id="@+id/backButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left|top"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_gravity="left|bottom"
+                android:layout_marginLeft="26dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_back" />
+                android:src="@drawable/ic_arrow" />
         </FrameLayout>
 
         <LinearLayout
@@ -182,7 +185,16 @@
             android:orientation="vertical"
             android:paddingBottom="14dp"
             android:paddingRight="14dp"
-            android:paddingTop="14dp" >
+            android:paddingTop="14dp">
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:text="March 1, 2015"
+                android:textColor="#b8b8b8"
+                android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/name"
@@ -194,16 +206,91 @@
                 android:textColor="#000"
                 android:textSize="13sp" />
 
-            <TextView
-                android:id="@+id/address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:text="1 Kirkland Ranch RD, Napa CA 94558"
-                android:textColor="#b8b8b8"
-                android:textSize="13sp" />
         </LinearLayout>
 
+
+        <LinearLayout
+            android:id="@+id/wineRating"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            >
+
+
+            <ImageView
+                android:id="@+id/glass1"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:src="@drawable/ic_full_glass" />
+
+            <ImageView
+                android:id="@+id/glass2"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:src="@drawable/ic_full_glass" />
+
+            <ImageView
+                android:id="@+id/glass3"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:src="@drawable/ic_half_glass" />
+
+            <ImageView
+                android:id="@+id/glass4"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:src="@drawable/ic_empty_glass" />
+
+            <ImageView
+                android:id="@+id/glass5"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:src="@drawable/ic_empty_glass" />
+
+            <LinearLayout
+                android:layout_width="0px"
+                android:layout_weight="5"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Avg. Rating"
+                    android:textColor="#b8b8b8"
+                    android:textSize="13sp" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3.5"
+                    android:textColor="#c7bc6c"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
         </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

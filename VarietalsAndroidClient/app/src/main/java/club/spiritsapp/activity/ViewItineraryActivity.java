@@ -131,7 +131,7 @@ public class ViewItineraryActivity extends TintedStatusBarActivity {
                         //startActivity(intent);
                         //dialog.dismiss();
 
-                        new WearableAppStarter().connectAndSend(ViewItineraryActivity.this);
+                        new WearableAppStarter().connectAndSend(ViewItineraryActivity.this, vineyard);
 
                     }
                 });

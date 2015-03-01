@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,6 +33,7 @@ import club.spiritsapp.R.id;
 import club.spiritsapp.R.layout;
 import club.spiritsapp.model.Rating;
 import club.spiritsapp.model.TastingSession;
+import club.spiritsapp.model.WineImages;
 
 public class ResultsActivity extends Activity {
 
@@ -43,7 +46,7 @@ public class ResultsActivity extends Activity {
 
     private TastingSession tasting;
 
-    private TextView history;
+    private View history;
 
     private TextView journal;
 
@@ -53,20 +56,24 @@ public class ResultsActivity extends Activity {
 
     private View journalContent;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+    private ViewGroup historyContainer;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "onCreate");
 
         super.onCreate(savedInstanceState);
 
         setContentView(layout.activity_results);
 
+        historyContainer = (ViewGroup) findViewById(R.id.historyContainer);
+
         journalContent = findViewById(R.id.journalContent);
         journalContent.setVisibility(View.GONE);
 
         final View view = findViewById(R.id.statsPage);
 
-        history = (TextView) findViewById(id.history);
+        history = (View) findViewById(id.history);
         history.setVisibility(View.GONE);
 
         journal = (TextView) findViewById(id.journal);
@@ -111,7 +118,7 @@ public class ResultsActivity extends Activity {
         final TextView username = (TextView) findViewById(id.username);
         final TwitterSession session =
                 Twitter.getSessionManager().getActiveSession();
-        if ( null != session ) {
+        if (null != session) {
             username.setText("@" + session.getUserName());
 
             MyTwitterApiClient client = new MyTwitterApiClient(session);
@@ -156,11 +163,11 @@ public class ResultsActivity extends Activity {
 
 
         final Intent intent = getIntent();
-        if ( null != intent ) {
+        if (null != intent) {
             final Bundle extras = intent.getExtras();
-            if ( null != extras ) {
+            if (null != extras) {
                 final String tastingJson = extras.getString(Constants.START_RESULTS_TASTING);
-                if ( null != tastingJson ) {
+                if (null != tastingJson) {
                     tasting = new Gson().fromJson(tastingJson, TastingSession.class);
                 }
                 Log.i(TAG, "onCreate received tasting: " + tasting);
@@ -170,40 +177,106 @@ public class ResultsActivity extends Activity {
         displayPieChart();
         displayPieChart2();
         displayBarChart();
+
+        populateHistory();
+    }
+
+    public void populateHistory() {
+
+        final LayoutInflater inflator = getLayoutInflater();
+
+        for (final Rating rating : tasting.ratings) {
+
+            final ViewGroup historyRow = (ViewGroup) inflator.inflate(
+                    R.layout.activity_results_item, historyContainer, false);
+
+            final ImageView winePicture = (ImageView) historyRow.findViewById(R.id.winePicture);
+
+            if (null != rating.wine && null != rating.wine.photos && !rating.wine.photos.isEmpty()) {
+                final String photoUrl = rating.wine.photos.get(0).url;
+                Picasso
+                        .with(ResultsActivity.this)
+                        .load(photoUrl)
+                        .fit().centerInside()
+                        .noFade()
+                        .placeholder(WineImages.getNextSampleResourceId())
+                        .into(winePicture);
+            } else {
+                winePicture.setImageResource(WineImages.getNextSampleResourceId());
+            }
+
+
+            final TextView wineName = (TextView) historyRow.findViewById(R.id.wineName);
+            wineName.setText(rating.wine.name);
+
+            if (null != rating.comment) {
+                wineName.append("\nComment: " + rating.comment);
+            }
+
+            final ViewGroup wineRating = (ViewGroup) historyRow.findViewById(R.id.wineRating);
+            setRating(wineRating, rating.score);
+
+            historyContainer.addView(historyRow);
+        }
+
+    }
+
+    private void setRating(final ViewGroup ratingImagesContainer, final int rating) {
+
+        final float progressPercent = (float) rating / 100f;
+        Log.i(TAG, "setWineRating progress = " + progressPercent);
+
+        final int childCount = ratingImagesContainer.getChildCount();
+        final float progressPercentPerChild = 1.0f / childCount;
+
+        for(int childIndex = 0 ; childIndex < childCount; childIndex++ ) {
+
+            final ImageView currentChild = (ImageView) ratingImagesContainer.getChildAt(childIndex);
+
+            final float progressPercentToBeEmpty = progressPercentPerChild * (childIndex);
+            final float progressPercentToBeFull = progressPercentPerChild * (childIndex + 1);
+
+
+            Log.i(TAG, "setWineRating child = " + childIndex
+                    + " progressPercentToBeEmpty = " + progressPercentToBeEmpty
+                    + " progressPercentToBeFull = " + progressPercentToBeFull);
+
+            if (progressPercent >= progressPercentToBeFull) {
+                currentChild.setImageResource(R.drawable.ic_full_glass);
+            } else if (progressPercent > progressPercentToBeEmpty) {
+                currentChild.setImageResource(R.drawable.ic_half_glass);
+            } else {
+                currentChild.setImageResource(R.drawable.ic_empty_glass);
+            }
+        }
     }
 
     private void displayPieChart() {
 
 
-        if ( null != tasting ) {
+        if (null != tasting) {
 
             final Map<String, Integer> scoreByTypeId = new LinkedHashMap<String, Integer>();
             for (final Rating rating : tasting.ratings) {
 
-                history.append("Rated: " + rating.wine.name + " " + rating.score + "\n");
-                if ( null != rating.comment ) {
-                    history.append("Commented: " + rating.comment + "\n");
-                }
-                history.append("\n");
-
-                final Integer currentScore = scoreByTypeId.get(rating.wine.varietalType.id.intern());
+                final Integer currentScore = scoreByTypeId.get(rating.wine.varietalType.intern());
                 if (null == currentScore) {
-                    scoreByTypeId.put(rating.wine.varietalType.id.intern(), 1);
+                    scoreByTypeId.put(rating.wine.varietalType.intern(), 1);
                 } else {
-                    scoreByTypeId.put(rating.wine.varietalType.id.intern(), currentScore + 1);
+                    scoreByTypeId.put(rating.wine.varietalType.intern(), currentScore + 1);
                 }
             }
 
             final String joinedLabels = concatStringsWSep(scoreByTypeId.keySet(), "|");
 
             List<String> values = new LinkedList<String>();
-            for(Map.Entry<String, Integer> entry : scoreByTypeId.entrySet() ) {
+            for (Map.Entry<String, Integer> entry : scoreByTypeId.entrySet()) {
                 values.add(Integer.toString(entry.getValue()));
             }
             final String joinedSumes = concatStringsWSep(values, ",");
 
 
-            url =  "https://chart.googleapis.com/chart?cht=p&chs=500x250&chd=t:"
+            url = "https://chart.googleapis.com/chart?cht=p&chs=500x250&chd=t:"
                     //+ "10,10,30,50"
                     + joinedSumes
                     + "&chdl="
@@ -214,7 +287,6 @@ public class ResultsActivity extends Activity {
             Log.i(TAG, "Made pie chart URL: " + url);
 
         }
-
 
 
         final ImageView chartImage = (ImageView) findViewById(R.id.chartImage);
@@ -230,29 +302,29 @@ public class ResultsActivity extends Activity {
     private void displayPieChart2() {
 
 
-        if ( null != tasting ) {
+        if (null != tasting) {
 
             final Map<String, Integer> scoreByTypeId = new LinkedHashMap<String, Integer>();
             for (final Rating rating : tasting.ratings) {
 
-                final Integer currentScore = scoreByTypeId.get(rating.wine.varietalType.id.intern());
+                final Integer currentScore = scoreByTypeId.get(rating.wine.varietalType.intern());
                 if (null == currentScore) {
-                    scoreByTypeId.put(rating.wine.varietalType.id.intern(), rating.score);
+                    scoreByTypeId.put(rating.wine.varietalType.intern(), rating.score);
                 } else {
-                    scoreByTypeId.put(rating.wine.varietalType.id.intern(), currentScore + rating.score);
+                    scoreByTypeId.put(rating.wine.varietalType.intern(), currentScore + rating.score);
                 }
             }
 
             final String joinedLabels = concatStringsWSep(scoreByTypeId.keySet(), "|");
 
             List<String> values = new LinkedList<String>();
-            for(Map.Entry<String, Integer> entry : scoreByTypeId.entrySet() ) {
+            for (Map.Entry<String, Integer> entry : scoreByTypeId.entrySet()) {
                 values.add(Integer.toString(entry.getValue()));
             }
             final String joinedSumes = concatStringsWSep(values, ",");
 
 
-            url =  "https://chart.googleapis.com/chart?cht=p&chs=500x250&chd=t:"
+            url = "https://chart.googleapis.com/chart?cht=p&chs=500x250&chd=t:"
                     //+ "10,10,30,50"
                     + joinedSumes
                     + "&chdl="
@@ -263,7 +335,6 @@ public class ResultsActivity extends Activity {
             Log.i(TAG, "Made pie chart URL: " + url);
 
         }
-
 
 
         final ImageView chartImage3 = (ImageView) findViewById(R.id.chartImage3);
@@ -279,29 +350,29 @@ public class ResultsActivity extends Activity {
     private void displayBarChart() {
 
 
-        if ( null != tasting ) {
+        if (null != tasting) {
 
             final Map<String, Integer> scoreByTypeId = new LinkedHashMap<String, Integer>();
             for (final Rating rating : tasting.ratings) {
 
-                final Integer currentScore = scoreByTypeId.get(rating.wine.varietal.id.intern());
+                final Integer currentScore = scoreByTypeId.get(rating.wine.varietal.intern());
                 if (null == currentScore) {
-                    scoreByTypeId.put(rating.wine.varietal.id.intern(), rating.score);
+                    scoreByTypeId.put(rating.wine.varietal.intern(), rating.score);
                 } else {
-                    scoreByTypeId.put(rating.wine.varietal.id.intern(), currentScore + rating.score);
+                    scoreByTypeId.put(rating.wine.varietal.intern(), currentScore + rating.score);
                 }
             }
 
             final String joinedLabels = concatStringsWSep(scoreByTypeId.keySet(), "|");
 
             List<String> values = new LinkedList<String>();
-            for(Map.Entry<String, Integer> entry : scoreByTypeId.entrySet() ) {
+            for (Map.Entry<String, Integer> entry : scoreByTypeId.entrySet()) {
                 values.add(Integer.toString(entry.getValue()));
             }
             final String joinedSumes = concatStringsWSep(values, ",");
 
 
-            final String url =  "https://chart.googleapis.com/chart?cht=bhs&chs=500x150&chd=t:"
+            final String url = "https://chart.googleapis.com/chart?cht=bhs&chs=500x150&chd=t:"
                     //+ "10,10,30,50"
                     + joinedSumes
                     + "&chdl="
@@ -323,14 +394,12 @@ public class ResultsActivity extends Activity {
         }
 
 
-
-
     }
 
     public static String concatStringsWSep(Iterable<String> strings, String separator) {
         StringBuilder sb = new StringBuilder();
         String sep = "";
-        for(String s: strings) {
+        for (String s : strings) {
             sb.append(sep).append(s.replaceAll(" ", "%20"));
             sep = separator;
         }
