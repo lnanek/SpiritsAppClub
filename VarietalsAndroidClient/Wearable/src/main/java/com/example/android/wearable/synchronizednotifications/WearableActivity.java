@@ -18,9 +18,13 @@ package com.example.android.wearable.synchronizednotifications;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.SeekBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import club.spiritsapp.R;
 
@@ -30,15 +34,46 @@ public class WearableActivity extends Activity {
 
     ViewGroup wineRating;
 
+    TextView prompt;
+
+    SeekBar seekBar;
+
+    private String[] wineDescriptions = new String[] {
+            "2010 Jamieson Ranch Vineyards, Coombsville, Cabernet Sauvignon",
+            "2001 Acacia Vineyards, Pinot Noir",
+            "2014 Tusk Reserve Red"
+    };
+
+    private int currentWineIndex = 0;
+
+    private void nextPrompt() {
+        currentWineIndex++;
+        if ( currentWineIndex == wineDescriptions.length ) {
+            finish();
+
+            final Toast toast = Toast.makeText(this, "Done rating!", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+
+            return;
+        }
+
+        prompt.setText(wineDescriptions[currentWineIndex]);
+        seekBar.setProgress(50);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wearable);
 
+        prompt = (TextView) findViewById(R.id.prompt);
+        prompt.setText(wineDescriptions[0]);
+
         wineRating = (ViewGroup) findViewById(R.id.wineRating);
         final int wineImageCount = wineRating.getChildCount();
 
-        final SeekBar seekBar = (SeekBar) findViewById(R.id.seekBar);
+        seekBar = (SeekBar) findViewById(R.id.seekBar);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -53,6 +88,43 @@ public class WearableActivity extends Activity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
 
+            }
+        });
+
+        findViewById(R.id.glass1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                seekBar.setProgress(20);
+            }
+        });
+        findViewById(R.id.glass2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                seekBar.setProgress(40);
+            }
+        });
+        findViewById(R.id.glass3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                seekBar.setProgress(60);
+            }
+        });
+        findViewById(R.id.glass4).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                seekBar.setProgress(80);
+            }
+        });
+        findViewById(R.id.glass5).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                seekBar.setProgress(100);
+            }
+        });
+        findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nextPrompt();
             }
         });
     }

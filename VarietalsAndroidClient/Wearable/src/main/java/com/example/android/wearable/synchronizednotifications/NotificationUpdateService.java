@@ -120,7 +120,7 @@ public class NotificationUpdateService extends WearableListenerService
     private void buildWearableOnlyNotification(String title, String content,
             boolean withDismissal) {
         Notification.Builder builder = new Notification.Builder(this)
-                .setSmallIcon(R.drawable.ic_launcher)
+                .setSmallIcon(R.drawable.ic_logo)
                 .setContentTitle(title)
                 .setContentText(content);
 
