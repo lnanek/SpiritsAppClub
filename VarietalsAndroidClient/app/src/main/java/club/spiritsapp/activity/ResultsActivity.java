@@ -35,6 +35,8 @@ public class ResultsActivity extends Activity {
 
     private static final String TAG = ResultsActivity.class.getSimpleName();
 
+    // As per https://developers.google.com/chart/image/docs/gallery/pie_charts
+
     private String url =
             "https://chart.googleapis.com/chart?cht=p&chs=500x250&chd=t:10,10,30,50&chdl=Red|White|Dessert|Sparkling&chco=87042f|e8e8be|8b0369|d7d4d4";
 

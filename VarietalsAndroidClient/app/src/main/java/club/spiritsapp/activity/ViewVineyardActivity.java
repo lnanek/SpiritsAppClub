@@ -2,6 +2,7 @@ package club.spiritsapp.activity;
 
 import com.google.gson.Gson;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.squareup.picasso.Picasso;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -55,6 +56,20 @@ public class ViewVineyardActivity extends TintedStatusBarActivity {
         final ImageView vineyardImage = (ImageView) findViewById(R.id.vineyard_image);
         //vineyardImage.setImageResource(vineyard.samplePhotoResourceIds.iterator().next());
         vineyardImage.setImageResource(SampleImages.getNextSampleResourceId());
+
+        final int sampleImageResourceId = vineyard.samplePhotoResourceIds.iterator().next();
+        if ( null == vineyard.photos || vineyard.photos.isEmpty() || null == vineyard.photos.get(0).url  ) {
+            vineyardImage.setImageResource(sampleImageResourceId);
+        } else {
+            Picasso
+                    .with(ViewVineyardActivity.this)
+                    .load(vineyard.photos.get(0).url)
+                    .fit().centerCrop()
+                    .noFade()
+                    .placeholder(sampleImageResourceId)
+                    .into(vineyardImage);
+        }
+
 
         findViewById(R.id.addButton).setOnClickListener(new View.OnClickListener() {
 

@@ -37,6 +37,7 @@
         <activity
             android:name=".activity.ChooseTypesActivity"
             android:screenOrientation="portrait"
+            android:label="What do you like?"
             android:theme="@style/CustomActionBarTheme"></activity>
 
         <activity

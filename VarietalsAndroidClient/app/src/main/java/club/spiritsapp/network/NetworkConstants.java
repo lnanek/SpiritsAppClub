@@ -7,8 +7,8 @@ public class NetworkConstants {
 
 
     // Currently broken Modulus.io server
-    //private static final String SERVER = "http://api.varietals.club/";
+    public static final String SERVER = "http://api.varietals.club/";
 
-    public static final String SERVER = "http://api-varietals.cfapps.io/";
+    //public static final String SERVER = "http://api-varietals.cfapps.io/";
 
 }

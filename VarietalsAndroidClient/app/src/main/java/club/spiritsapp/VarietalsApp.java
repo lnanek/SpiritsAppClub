@@ -7,6 +7,8 @@ import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 
+import org.apache.http.params.HttpConnectionParams;
+
 public class VarietalsApp extends Application {
 
 	public static VarietalsApp instance;
@@ -19,7 +21,7 @@ public class VarietalsApp extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		
+
 		prefs = new VarietalsPrefs(this);
 
 

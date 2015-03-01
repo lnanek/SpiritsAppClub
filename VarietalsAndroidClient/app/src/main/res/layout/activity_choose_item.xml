@@ -3,16 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:background="@drawable/checkbox_background"
-    android:gravity="center"
-    android:paddingBottom="14dp"
+    android:background="@drawable/btn_landing"
+    android:gravity="left|center_vertical"
+    android:paddingBottom="34dp"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
-    android:paddingTop="14dp"
+    android:paddingTop="34dp"
     android:text="Red"
-    android:textColor="#FFF"
+    android:textColor="#777775"
     android:textSize="13sp"
-    android:layout_margin="10dp"
+    android:layout_margin="3dp"
     tools:context=".activity.ChooseTypesActivity" >
 
 </CheckBox>

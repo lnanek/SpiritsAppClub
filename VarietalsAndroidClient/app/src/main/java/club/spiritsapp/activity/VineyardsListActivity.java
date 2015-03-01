@@ -21,6 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthToken;
 import com.twitter.sdk.android.core.TwitterSession;
@@ -160,7 +161,19 @@ public class VineyardsListActivity extends TintedStatusBarActivity {
             vineyardAddressView.setText(null == vineyard.address ? "" : vineyard.address.toString());
 
             final ImageView vineyardImage = (ImageView) vineyardContainer.findViewById(R.id.vineyard_image);
-            vineyardImage.setImageResource(vineyard.samplePhotoResourceIds.iterator().next());
+
+            final int sampleImageResourceId = vineyard.samplePhotoResourceIds.iterator().next();
+            if ( null == vineyard.photos || vineyard.photos.isEmpty() || null == vineyard.photos.get(0).url  ) {
+                vineyardImage.setImageResource(sampleImageResourceId);
+            } else {
+                Picasso
+                        .with(VineyardsListActivity.this)
+                        .load(vineyard.photos.get(0).url)
+                        .fit().centerCrop()
+                        .noFade()
+                        .placeholder(sampleImageResourceId)
+                        .into(vineyardImage);
+            }
 
             vineyardsContainer.addView(vineyardContainer);
 

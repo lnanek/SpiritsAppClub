@@ -1,5 +1,6 @@
 package club.spiritsapp.activity;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import android.app.AlertDialog;
@@ -19,6 +20,8 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+
+import club.spiritsapp.model.VarietalType;
 import club.spiritsapp.network.GsonRequest;
 import club.spiritsapp.R;
 import club.spiritsapp.VarietalsApp;
@@ -55,16 +58,27 @@ public class ChooseVarietalsActivity extends TintedStatusBarActivity {
 		
 		setContentView(R.layout.activity_choose);
 
-        getActionBar().setLogo(null);
-        getActionBar().setIcon(null);
-        getActionBar().setDisplayShowHomeEnabled(false);
-        getActionBar().setDisplayUseLogoEnabled(false);
+        getActionBar().setLogo(R.drawable.transparent);
+        getActionBar().setIcon(R.drawable.transparent);
 
-		findViewById(R.id.skipButton).setOnClickListener(new View.OnClickListener() {
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            Api21Elevation.set(getActionBar(), 0f);
+        }
+
+		findViewById(R.id.nextButton).setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				final Intent intent = new Intent(ChooseVarietalsActivity.this, VineyardsListActivity.class);
+
+
+                final Set<String> currentTypes = VarietalsApp.instance.prefs.getChosenTypes();
+                   if ( currentTypes.isEmpty() ) {
+                       skip();
+                       return;
+                   }
+
+
+                final Intent intent = new Intent(ChooseVarietalsActivity.this, VineyardsListActivity.class);
 				startActivity(intent);
 				finish();
 			}
@@ -74,6 +88,10 @@ public class ChooseVarietalsActivity extends TintedStatusBarActivity {
 		
 		final TextView prompt = (TextView) findViewById(R.id.prompt);
 		prompt.setText(R.string.choose_varietals_prompt);
+
+        if ( null == savedInstanceState ) {
+            VarietalsApp.instance.prefs.setChosenVarietals(new HashSet<String>());
+        }
 
 		requestTypes();
 
@@ -124,7 +142,11 @@ public class ChooseVarietalsActivity extends TintedStatusBarActivity {
 				}).show();
 	}
 
+    private VarietalsResponse lastResponse;
+
 	private void displayVarietals(VarietalsResponse varietals) {
+
+        lastResponse = varietals;
 
 		final LayoutInflater inflator = getLayoutInflater();
 
@@ -141,8 +163,11 @@ public class ChooseVarietalsActivity extends TintedStatusBarActivity {
 			final CheckBox checkbox = (CheckBox) inflator.inflate(
 					R.layout.activity_choose_item, typesContainer, false);
 			checkbox.setText(varietal.name);
-			
-			checkbox.setOnCheckedChangeListener(new OnCheckedChangeListener() {				
+
+            checkbox.setChecked(currentTypes.contains(varietal.id));
+
+
+            checkbox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 				@Override
 				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 					
@@ -178,10 +203,25 @@ public class ChooseVarietalsActivity extends TintedStatusBarActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		if (item.getItemId() == R.id.next) {
-			final Intent intent = new Intent(this, VineyardsListActivity.class);
-			startActivity(intent);
+            skip();
 		}
 		
 		return super.onOptionsItemSelected(item);
 	}
+
+
+    private void skip() {
+        final Set<String> currentTypes = VarietalsApp.instance.prefs.getChosenVarietals();
+
+        for (final Varietal type : lastResponse.varietals) {
+
+            currentTypes.add(type.id);
+
+        }
+        VarietalsApp.instance.prefs.setChosenVarietals(currentTypes);
+
+        final Intent intent = new Intent(this, VineyardsListActivity.class);
+        startActivity(intent);
+    }
+
 }

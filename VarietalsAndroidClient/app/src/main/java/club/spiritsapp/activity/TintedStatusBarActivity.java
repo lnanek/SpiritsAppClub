@@ -46,5 +46,15 @@ public abstract class TintedStatusBarActivity extends Activity {
 		}
 		win.setAttributes(winParams);
 	}
-	
+
+
+    @TargetApi(21)
+    public static class Api21Elevation {
+
+        public static void set(android.app.ActionBar actionBar, float elevation) {
+            actionBar.setElevation(elevation);
+        }
+    }
+
+
 }

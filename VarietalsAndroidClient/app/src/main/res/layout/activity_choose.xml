@@ -4,27 +4,24 @@
     android:layout_height="match_parent"
     android:keepScreenOn="true"
     android:fitsSystemWindows="true"
+    android:background="#FFF"
     tools:context=".activity.ChooseTypesActivity" >
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/im_landing_background" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="10dp" >
+        android:orientation="vertical" >
 
         <TextView
             android:id="@+id/prompt"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:padding="10dp"
+            android:gravity="left"
+            android:paddingLeft="45dp"
+            android:paddingRight="45dp"
+            android:paddingTop="26dp"
+            android:paddingBottom="26dp"
+            android:background="#8b0369"
             android:text="@string/choose_types_prompt"
             android:textSize="13sp"
             android:textColor="#FFF" />
@@ -41,23 +38,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="10dp" />
+            android:padding="3dp" />
         
         </ScrollView>
-        
-        <TextView
-            android:id="@+id/skipButton"
-            android:layout_width="wrap_content"
+
+        <Button
+            android:id="@+id/nextButton"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/button"
-            android:gravity="center"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingTop="14dp"
-            android:paddingBottom="14dp"
-            android:textSize="13sp"
-            android:text="SKIP"
+            android:background="@drawable/btn_purple"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp"
+            android:text="NEXT"
             android:textColor="#FFF" />
                 
     </LinearLayout>

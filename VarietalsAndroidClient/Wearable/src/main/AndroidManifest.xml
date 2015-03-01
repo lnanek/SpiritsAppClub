@@ -17,6 +17,7 @@
                    android:value="@integer/google_play_services_version" />
         <activity
             android:name="com.example.android.wearable.synchronizednotifications.WearableActivity"
+            android:launchMode="singleTask"
             android:label="Rate Wines" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

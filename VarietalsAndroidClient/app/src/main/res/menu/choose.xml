@@ -4,8 +4,7 @@
 
     <item
         android:id="@+id/next"
-        android:icon="@drawable/ic_menu_forward"
-        android:title="Next"
+        android:title="SKIP"
         android:showAsAction="always"
         />
 

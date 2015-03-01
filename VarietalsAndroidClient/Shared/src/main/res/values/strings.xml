@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Varietals</string>
         <string name="sign_in_with_email"><u>Sign in with email</u></string>
-    <string name="choose_types_prompt">What type of wines are you interested in?</string>
+    <string name="choose_types_prompt">Add some likes to help make your trip perfect!</string>
     <string name="choose_varietals_prompt">What varietals are you interested in?</string>
     <string name="vineyards_prompt">Your Vineyard Recommendations</string>
 
